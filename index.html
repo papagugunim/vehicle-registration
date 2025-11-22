@@ -33,14 +33,41 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 15px;
             margin-bottom: 15px;
             font-size: 1.3rem;
             font-weight: 700;
         }
 
         .lotte-logo img {
-            height: 50px;
+            height: 60px;
+            width: auto;
+        }
+
+        .datetime-display {
+            text-align: center;
+            background: white;
+            color: #333;
+            font-size: 1rem;
+            margin: 15px auto;
+            padding: 12px 25px;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .datetime-display .date {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-right: 15px;
+            color: #ED1C24;
+        }
+
+        .datetime-display .time {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
         }
 
         .header h1 {
@@ -390,23 +417,433 @@
         .lang-btn.active:hover {
             background: white;
         }
+
+        /* AI 이미지 업로드 영역 */
+        .ai-upload-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            margin-bottom: 25px;
+            color: white;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .ai-section-header {
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            user-select: none;
+            transition: background 0.3s;
+        }
+
+        .ai-section-header:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .ai-section-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ai-toggle-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .ai-toggle-icon.expanded {
+            transform: rotate(180deg);
+        }
+
+        .ai-section-content {
+            padding: 0 20px 20px 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .ai-section-content.expanded {
+            max-height: 800px;
+            padding: 0 20px 20px 20px;
+        }
+
+        .upload-area {
+            background: rgba(255,255,255,0.15);
+            border: 2px dashed rgba(255,255,255,0.5);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .upload-area:hover {
+            background: rgba(255,255,255,0.25);
+            border-color: rgba(255,255,255,0.8);
+        }
+
+        .upload-area.dragover {
+            background: rgba(255,255,255,0.3);
+            border-color: white;
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .upload-text {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .upload-hint {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .processing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .processing-overlay.show {
+            display: flex;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .processing-text {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .btn-clear-image {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 8px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-clear-image:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* AI 탭 */
+        .ai-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .ai-tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .ai-tab-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .ai-tab-btn.active {
+            background: rgba(255,255,255,0.3);
+            border-color: white;
+        }
+
+        .ai-tab-content {
+            display: none;
+        }
+
+        .ai-tab-content.active {
+            display: block;
+        }
+
+        #textInput {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-size: 0.95rem;
+            font-family: monospace;
+            resize: vertical;
+        }
+
+        #textInput::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .btn-extract {
+            background: white;
+            color: #667eea;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        .btn-extract:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* 로그인 페이지 */
+        #loginPage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h1 {
+            color: #ED1C24;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-form label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: #ED1C24;
+            box-shadow: 0 0 0 3px rgba(237, 28, 36, 0.1);
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .remember-me label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: normal;
+        }
+
+        .login-error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .login-error.show {
+            display: block;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .user-info {
+            position: absolute;
+            top: 70px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+
+        #mainApp {
+            display: none;
+        }
+
+        #mainApp.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- 언어 선택 -->
+    <!-- 로그인 페이지 -->
+    <div id="loginPage">
+        <!-- 로그인 페이지 언어 선택 -->
         <div class="lang-selector">
             <button class="lang-btn active" onclick="switchLanguage('ru')">RUS</button>
             <button class="lang-btn" onclick="switchLanguage('ko')">KOR</button>
         </div>
 
-        <div class="header">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="lotte-logo" style="justify-content: center; color: #ED1C24;">
+                    Happy Moments
+                </div>
+                <h1 id="loginTitle">🚛 차량 입차 등록 시스템</h1>
+                <p id="loginSubtitle">Lotte KF 러시아법인</p>
+            </div>
+
+            <div class="login-error" id="loginError">
+                아이디 또는 비밀번호가 올바르지 않습니다
+            </div>
+
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="loginUsername" id="loginUsernameLabel">아이디</label>
+                    <input type="text" id="loginUsername" required autocomplete="username">
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword" id="loginPasswordLabel">비밀번호</label>
+                    <input type="password" id="loginPassword" required autocomplete="current-password">
+                </div>
+
+                <div class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe" id="rememberMeLabel">로그인 상태 유지</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full" id="loginBtn">
+                    로그인
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 메인 앱 -->
+    <div id="mainApp">
+        <div class="container">
+            <!-- 로그아웃 버튼 -->
+            <button class="logout-btn" onclick="logout()">🚪 로그아웃</button>
+
+            <!-- 사용자 정보 -->
+            <div class="user-info" id="userInfo"></div>
+
+            <!-- 언어 선택 -->
+            <div class="lang-selector">
+                <button class="lang-btn active" onclick="switchLanguage('ru')">RUS</button>
+                <button class="lang-btn" onclick="switchLanguage('ko')">KOR</button>
+            </div>
+
+            <div class="header">
             <div class="lotte-logo">
                 <img src="logo.png" alt="Lotte Logo" onerror="this.style.display='none'">
                 Happy Moments
             </div>
             <h1>🚛 차량 입차 등록 시스템</h1>
             <div class="subtitle">Система регистрации въезда транспорта | Vehicle Entry Registration System <span style="font-size: 0.75em; color: #fff; margin-left: 8px;">v0.1</span></div>
+            <div class="datetime-display">
+                <span class="date" id="currentDate">2025년 11월 22일</span>
+                <span class="time" id="currentTime">00:00:00</span>
+            </div>
         </div>
 
         <div class="tabs">
@@ -422,6 +859,42 @@
 
                 <div class="success-message" id="successMessage">
                     ✅ 차량 정보가 성공적으로 등록되었습니다!
+                </div>
+
+                <!-- AI 이미지 업로드 섹션 -->
+                <div class="ai-upload-section">
+                    <!-- 클릭 가능한 헤더 -->
+                    <div class="ai-section-header" onclick="toggleAISection()">
+                        <h3>🤖 AI 자동 입력</h3>
+                        <span class="ai-toggle-icon">▼</span>
+                    </div>
+
+                    <!-- 접었다 펼쳤다 하는 콘텐츠 -->
+                    <div class="ai-section-content" id="aiSectionContent">
+                        <!-- AI 탭 -->
+                        <div class="ai-tabs">
+                            <button type="button" class="ai-tab-btn active" onclick="switchAITab('image')">📸 이미지 업로드</button>
+                            <button type="button" class="ai-tab-btn" onclick="switchAITab('text')">📝 텍스트 붙여넣기</button>
+                        </div>
+
+                        <!-- 이미지 업로드 탭 -->
+                        <div class="ai-tab-content active" id="imageTab">
+                            <div class="upload-area" id="uploadArea">
+                                <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                                <div class="upload-icon">📸</div>
+                                <div class="upload-text">위임장 이미지를 업로드하세요</div>
+                                <div class="upload-hint">클릭하거나 이미지를 드래그하세요 (PNG, JPG, PDF)</div>
+                            </div>
+                            <img id="imagePreview" alt="Preview">
+                            <button type="button" class="btn-clear-image" id="clearImageBtn" style="display: none;">이미지 제거</button>
+                        </div>
+
+                        <!-- 텍스트 붙여넣기 탭 -->
+                        <div class="ai-tab-content" id="textTab">
+                            <textarea id="textInput" placeholder="이메일에서 받은 위임장 텍스트를 여기에 붙여넣으세요...&#10;&#10;예시:&#10;Гаврис Денис Викторович&#10;Паспорт MC3544098&#10;AX3623-5 / A39101-5&#10;ЛОТТЕ"></textarea>
+                            <button type="button" class="btn-extract" onclick="extractFromText()">정보 추출하기</button>
+                        </div>
+                    </div>
                 </div>
 
                 <form id="vehicleForm">
@@ -446,8 +919,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="orderNumber">주문번호 *</label>
-                            <input type="text" id="orderNumber" placeholder="주문번호 입력" required>
+                            <label for="orderNumber">주문번호</label>
+                            <input type="text" id="orderNumber" placeholder="주문번호 입력">
                         </div>
                     </div>
 
@@ -477,13 +950,13 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="driverPhone">운전자 전화번호 *</label>
-                            <input type="tel" id="driverPhone" placeholder="+7 XXX XXX XX XX" required>
+                            <label for="driverPhone">운전자 전화번호</label>
+                            <input type="tel" id="driverPhone" placeholder="+7 XXX XXX XX XX">
                         </div>
 
                         <div class="form-group">
-                            <label for="entryTime">입차 예정 시각 *</label>
-                            <input type="time" id="entryTime" required>
+                            <label for="entryTime">입차 예정 시각</label>
+                            <input type="time" id="entryTime" min="08:00" max="20:00">
                         </div>
                     </div>
 
@@ -542,6 +1015,16 @@
             </div>
         </div>
     </div>
+    </div>
+
+    <!-- 처리 중 오버레이 -->
+    <div class="processing-overlay" id="processingOverlay">
+        <div class="spinner"></div>
+        <div class="processing-text">이미지 분석 중...</div>
+    </div>
+
+    <!-- Tesseract.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
     <script>
         // 번역 객체
@@ -563,7 +1046,7 @@
                 entryDate: 'Дата въезда *',
                 clientName: 'Название клиента *',
                 clientPlaceholder: 'Введите название клиента',
-                orderNumber: 'Номер заказа *',
+                orderNumber: 'Номер заказа',
                 orderPlaceholder: 'Введите номер заказа',
                 headNumber: 'Номер головы *',
                 headPlaceholder: 'Номер контейнера головы',
@@ -573,9 +1056,9 @@
                 driverNamePlaceholder: 'Имя водителя',
                 driverPassport: 'Номер паспорта *',
                 passportPlaceholder: 'Номер паспорта',
-                driverPhone: 'Телефон водителя *',
+                driverPhone: 'Телефон водителя',
                 phonePlaceholder: '+7 XXX XXX XX XX',
-                entryTime: 'Время въезда *',
+                entryTime: 'Время въезда',
                 entryCompleted: 'Въезд завершён',
                 submitBtn: 'Зарегистрировать',
                 successMessage: '✅ Транспорт успешно зарегистрирован!',
@@ -609,7 +1092,31 @@
                 deleteConfirm: 'Вы уверены, что хотите удалить?',
                 deleteOwnOnly: 'Вы можете удалить только свои записи',
                 editOwnOnly: 'Вы можете редактировать только свои записи',
-                settingsSaved: 'Настройки сохранены'
+                settingsSaved: 'Настройки сохранены',
+
+                // AI 이미지 업로드
+                aiAutoFill: '🤖 AI Автозаполнение',
+                aiTabImage: '📸 Загрузка изображения',
+                aiTabText: '📝 Вставить текст',
+                uploadImage: 'Загрузите изображение доверенности',
+                uploadHint: 'Нажмите или перетащите изображение (PNG, JPG, PDF)',
+                textPlaceholder: 'Вставьте текст доверенности из email...\n\nПример:\nГаврис Денис Викторович\nПаспорт MC3544098\nAX3623-5 / A39101-5\nЛОТТЕ',
+                btnExtract: 'Извлечь информацию',
+                clearImage: 'Удалить изображение',
+                processing: 'Анализ изображения...',
+                extractSuccess: '✅ Информация успешно извлечена!',
+                extractError: '❌ Ошибка при анализе изображения',
+
+                // 로그인
+                loginTitle: '🚛 Система регистрации въезда транспорта',
+                loginSubtitle: 'Lotte KF Российский филиал',
+                username: 'Логин',
+                password: 'Пароль',
+                rememberMe: 'Запомнить меня',
+                loginBtn: 'Войти',
+                loginError: 'Неверный логин или пароль',
+                logout: '🚪 Выйти',
+                loggedInAs: 'Вошли как'
             },
             ko: {
                 // 헤더
@@ -628,7 +1135,7 @@
                 entryDate: '입차 날짜 *',
                 clientName: '거래처명 *',
                 clientPlaceholder: '거래처명 입력',
-                orderNumber: '주문번호 *',
+                orderNumber: '주문번호',
                 orderPlaceholder: '주문번호 입력',
                 headNumber: '헤드 번호 *',
                 headPlaceholder: '컨테이너 헤드 번호',
@@ -638,9 +1145,9 @@
                 driverNamePlaceholder: '운전자 이름',
                 driverPassport: '운전자 여권번호 *',
                 passportPlaceholder: '여권번호',
-                driverPhone: '운전자 전화번호 *',
+                driverPhone: '운전자 전화번호',
                 phonePlaceholder: '+7 XXX XXX XX XX',
-                entryTime: '입차 예정 시각 *',
+                entryTime: '입차 예정 시각',
                 entryCompleted: '입차 완료',
                 submitBtn: '등록하기',
                 successMessage: '✅ 차량 정보가 성공적으로 등록되었습니다!',
@@ -674,17 +1181,47 @@
                 deleteConfirm: '정말 삭제하시겠습니까?',
                 deleteOwnOnly: '본인이 등록한 차량만 삭제할 수 있습니다',
                 editOwnOnly: '본인이 등록한 차량만 수정할 수 있습니다',
-                settingsSaved: '설정이 저장되었습니다'
+                settingsSaved: '설정이 저장되었습니다',
+
+                // AI 이미지 업로드
+                aiAutoFill: '🤖 AI 자동 입력',
+                aiTabImage: '📸 이미지 업로드',
+                aiTabText: '📝 텍스트 붙여넣기',
+                uploadImage: '위임장 이미지를 업로드하세요',
+                uploadHint: '클릭하거나 이미지를 드래그하세요 (PNG, JPG, PDF)',
+                textPlaceholder: '이메일에서 받은 위임장 텍스트를 여기에 붙여넣으세요...\n\n예시:\nГаврис Денис Викторович\nПаспорт MC3544098\nAX3623-5 / A39101-5\nЛОТТЕ',
+                btnExtract: '정보 추출하기',
+                clearImage: '이미지 제거',
+                processing: '이미지 분석 중...',
+                extractSuccess: '✅ 정보가 성공적으로 추출되었습니다!',
+                extractError: '❌ 이미지 분석 중 오류가 발생했습니다',
+
+                // 로그인
+                loginTitle: '🚛 차량 입차 등록 시스템',
+                loginSubtitle: 'Lotte KF 러시아법인',
+                username: '아이디',
+                password: '비밀번호',
+                rememberMe: '로그인 상태 유지',
+                loginBtn: '로그인',
+                loginError: '아이디 또는 비밀번호가 올바르지 않습니다',
+                logout: '🚪 로그아웃',
+                loggedInAs: '로그인:'
             }
         };
 
         let currentLang = 'ru'; // 기본 언어: 러시아어
+        let dateTimeInterval = null; // 날짜/시간 업데이트 인터벌
 
         const STORAGE_KEYS = {
             vehicles: 'vehicleRegistrations',
             settings: 'vehicleSettings',
             users: 'vehicleUsers',
-            language: 'preferredLanguage'
+            language: 'preferredLanguage',
+            learningData: 'ocrLearningData',
+            lastOcrExtraction: 'lastOcrExtraction',
+            accounts: 'userAccounts',
+            currentUser: 'currentUser',
+            rememberMe: 'rememberMe'
         };
 
         // 기본 사용자 목록
@@ -695,6 +1232,152 @@
             { name: '박창고', role: '창고', isActive: true },
             { name: '최경비', role: '경비', isActive: true }
         ];
+
+        // ========== 계정 관리 및 인증 ==========
+
+        // 간단한 비밀번호 해싱 (Base64 인코딩 + Salt)
+        function hashPassword(password) {
+            const salt = 'LotteKF2025';
+            return btoa(salt + password + salt);
+        }
+
+        // 계정 데이터 불러오기
+        function loadAccounts() {
+            const accounts = localStorage.getItem(STORAGE_KEYS.accounts);
+            if (accounts) {
+                return JSON.parse(accounts);
+            }
+
+            // 기본 관리자 계정 및 직원 계정 생성
+            const defaultAccounts = [
+                {
+                    username: 'admin',
+                    password: hashPassword('1234'),
+                    name: '관리자',
+                    role: '관리자',
+                    isAdmin: true
+                },
+                {
+                    username: 'cho',
+                    password: hashPassword('1234'),
+                    name: '조성민',
+                    role: '영업팀',
+                    isAdmin: false
+                }
+            ];
+
+            saveAccounts(defaultAccounts);
+            return defaultAccounts;
+        }
+
+        // 계정 데이터 저장
+        function saveAccounts(accounts) {
+            localStorage.setItem(STORAGE_KEYS.accounts, JSON.stringify(accounts));
+        }
+
+        // 로그인 처리
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            const accounts = loadAccounts();
+            const hashedPassword = hashPassword(password);
+
+            const account = accounts.find(acc =>
+                acc.username === username && acc.password === hashedPassword
+            );
+
+            if (account) {
+                // 로그인 성공
+                const currentUser = {
+                    username: account.username,
+                    name: account.name,
+                    role: account.role,
+                    isAdmin: account.isAdmin || false
+                };
+
+                localStorage.setItem(STORAGE_KEYS.currentUser, JSON.stringify(currentUser));
+
+                if (rememberMe) {
+                    localStorage.setItem(STORAGE_KEYS.rememberMe, 'true');
+                } else {
+                    localStorage.removeItem(STORAGE_KEYS.rememberMe);
+                }
+
+                // 사용자 선택 목록에 자동 선택
+                localStorage.setItem('lastSelectedUser', account.name);
+
+                showMainApp();
+            } else {
+                // 로그인 실패
+                const loginError = document.getElementById('loginError');
+                loginError.classList.add('show');
+                setTimeout(() => loginError.classList.remove('show'), 3000);
+            }
+        }
+
+        // 로그아웃 처리
+        function logout() {
+            const t = TRANSLATIONS[currentLang];
+
+            if (confirm('정말 로그아웃하시겠습니까?')) {
+                localStorage.removeItem(STORAGE_KEYS.currentUser);
+
+                const rememberMe = localStorage.getItem(STORAGE_KEYS.rememberMe);
+                if (!rememberMe) {
+                    localStorage.removeItem('lastSelectedUser');
+                }
+
+                showLoginPage();
+            }
+        }
+
+        // 로그인 페이지 표시
+        function showLoginPage() {
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('mainApp').classList.remove('show');
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPassword').value = '';
+        }
+
+        // 메인 앱 표시
+        function showMainApp() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('mainApp').classList.add('show');
+
+            const currentUser = JSON.parse(localStorage.getItem(STORAGE_KEYS.currentUser));
+            const t = TRANSLATIONS[currentLang];
+
+            document.getElementById('userInfo').textContent =
+                `${t.loggedInAs}: ${currentUser.name} (${currentUser.role})`;
+
+            // 언어 업데이트 (모든 UI 요소 번역)
+            updateLanguage();
+
+            // 사용자 선택 목록 렌더링
+            renderUserSelect();
+
+            // 날짜/시간 업데이트 시작
+            if (dateTimeInterval) {
+                clearInterval(dateTimeInterval);
+            }
+            updateDateTime();
+            dateTimeInterval = setInterval(updateDateTime, 1000);
+        }
+
+        // 초기 로그인 상태 확인
+        function checkLoginStatus() {
+            const currentUser = localStorage.getItem(STORAGE_KEYS.currentUser);
+
+            if (currentUser) {
+                showMainApp();
+            } else {
+                showLoginPage();
+            }
+        }
 
         // 설정 불러오기
         function loadSettings() {
@@ -729,6 +1412,85 @@
             localStorage.setItem(STORAGE_KEYS.vehicles, JSON.stringify(vehicles));
         }
 
+        // OCR 학습 데이터 불러오기
+        function loadLearningData() {
+            const data = localStorage.getItem(STORAGE_KEYS.learningData);
+            return data ? JSON.parse(data) : {
+                clientMappings: {},    // 텍스트 패턴 -> 거래처명
+                orderMappings: {},     // 텍스트 패턴 -> 주문번호
+                nameMappings: {},      // 텍스트 패턴 -> 운전자명
+                passportMappings: {},  // 텍스트 패턴 -> 여권번호
+                totalExtractions: 0,   // 총 추출 횟수
+                corrections: 0         // 총 수정 횟수
+            };
+        }
+
+        // OCR 학습 데이터 저장
+        function saveLearningData(data) {
+            localStorage.setItem(STORAGE_KEYS.learningData, JSON.stringify(data));
+        }
+
+        // 학습 데이터 업데이트 (폼 제출 시 호출)
+        function updateLearningData(originalText, extractedData, finalData) {
+            const learningData = loadLearningData();
+            learningData.totalExtractions++;
+
+            // 거래처명 학습
+            if (extractedData.clientName !== finalData.clientName && finalData.clientName) {
+                learningData.corrections++;
+                // 원본 텍스트에서 키워드 추출
+                const keywords = extractClientKeywords(originalText);
+                keywords.forEach(keyword => {
+                    learningData.clientMappings[keyword] = finalData.clientName;
+                });
+            }
+
+            // 주문번호 학습
+            if (extractedData.orderNumber !== finalData.orderNumber && finalData.orderNumber) {
+                learningData.corrections++;
+                const orderPattern = extractOrderPattern(originalText, finalData.orderNumber);
+                if (orderPattern) {
+                    learningData.orderMappings[orderPattern] = finalData.orderNumber;
+                }
+            }
+
+            // 운전자명 학습
+            if (extractedData.driverName !== finalData.driverName && finalData.driverName) {
+                learningData.corrections++;
+                learningData.nameMappings[extractedData.driverName] = finalData.driverName;
+            }
+
+            // 여권번호 학습
+            if (extractedData.driverPassport !== finalData.driverPassport && finalData.driverPassport) {
+                learningData.corrections++;
+                learningData.passportMappings[extractedData.driverPassport] = finalData.driverPassport;
+            }
+
+            saveLearningData(learningData);
+            console.log('학습 데이터 업데이트:', learningData);
+        }
+
+        // 거래처명 키워드 추출
+        function extractClientKeywords(text) {
+            const keywords = [];
+            // 대문자 단어 추출
+            const upperWords = text.match(/[A-ZА-ЯЁ]{3,}/g);
+            if (upperWords) {
+                keywords.push(...upperWords);
+            }
+            return keywords;
+        }
+
+        // 주문번호 패턴 추출
+        function extractOrderPattern(text, orderNumber) {
+            // 주문번호 주변 텍스트 패턴 추출
+            const index = text.indexOf(orderNumber);
+            if (index > -1) {
+                return text.substring(Math.max(0, index - 20), index + orderNumber.length + 20).trim();
+            }
+            return null;
+        }
+
         // 사용자 목록 렌더링
         function renderUserSelect() {
             const settings = loadSettings();
@@ -754,11 +1516,7 @@
             e.preventDefault();
 
             const userName = document.getElementById('userName').value;
-            const vehicle = {
-                id: Date.now(),
-                registeredBy: userName,
-                registeredAt: new Date().toISOString(),
-                entryDate: document.getElementById('entryDate').value,
+            const finalData = {
                 clientName: document.getElementById('clientName').value,
                 orderNumber: document.getElementById('orderNumber').value,
                 headNumber: document.getElementById('headNumber').value,
@@ -766,9 +1524,26 @@
                 driverName: document.getElementById('driverName').value,
                 driverPassport: document.getElementById('driverPassport').value,
                 driverPhone: document.getElementById('driverPhone').value,
-                entryTime: document.getElementById('entryTime').value,
+                entryTime: document.getElementById('entryTime').value
+            };
+
+            const vehicle = {
+                id: Date.now(),
+                registeredBy: userName,
+                registeredAt: new Date().toISOString(),
+                entryDate: document.getElementById('entryDate').value,
+                ...finalData,
                 entryCompleted: document.getElementById('entryCompleted').checked
             };
+
+            // OCR 학습 데이터 업데이트
+            const lastExtraction = localStorage.getItem(STORAGE_KEYS.lastOcrExtraction);
+            if (lastExtraction) {
+                const { originalText, extractedData } = JSON.parse(lastExtraction);
+                updateLearningData(originalText, extractedData, finalData);
+                // 학습 후 삭제
+                localStorage.removeItem(STORAGE_KEYS.lastOcrExtraction);
+            }
 
             const vehicles = loadVehicles();
             vehicles.push(vehicle);
@@ -817,8 +1592,15 @@
                 );
             }
 
-            // 날짜 최신순 정렬
-            filteredVehicles.sort((a, b) => new Date(b.registeredAt) - new Date(a.registeredAt));
+            // 날짜와 시간별로 정렬 (입차날짜 + 입차예정시각)
+            // 입차 예정 시각이 없으면 20:00으로 간주
+            filteredVehicles.sort((a, b) => {
+                const timeA = a.entryTime || '20:00';
+                const timeB = b.entryTime || '20:00';
+                const dateTimeA = new Date(`${a.entryDate}T${timeA}`);
+                const dateTimeB = new Date(`${b.entryDate}T${timeB}`);
+                return dateTimeA - dateTimeB;
+            });
 
             const t = TRANSLATIONS[currentLang];
 
@@ -967,15 +1749,6 @@
 
         // 탭 전환
         function switchTab(tabName) {
-            // 설정 탭은 비밀번호 확인
-            if (tabName === 'settings') {
-                const password = prompt(TRANSLATIONS[currentLang].passwordPrompt);
-                if (password !== '1234') {
-                    alert(TRANSLATIONS[currentLang].passwordWrong);
-                    return;
-                }
-            }
-
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
@@ -1013,8 +1786,20 @@
         function updateLanguage() {
             const t = TRANSLATIONS[currentLang];
 
+            // 로그인 페이지
+            document.getElementById('loginTitle').textContent = t.loginTitle;
+            document.getElementById('loginSubtitle').textContent = t.loginSubtitle;
+            document.getElementById('loginUsernameLabel').textContent = t.username;
+            document.getElementById('loginPasswordLabel').textContent = t.password;
+            document.getElementById('rememberMeLabel').textContent = t.rememberMe;
+            document.getElementById('loginBtn').textContent = t.loginBtn;
+            document.getElementById('loginError').textContent = t.loginError;
+
             // 헤더
-            document.querySelector('.header h1').textContent = t.title;
+            const headerH1 = document.querySelector('.header h1');
+            if (headerH1) {
+                headerH1.textContent = t.title;
+            }
             document.querySelector('.subtitle').innerHTML = t.subtitle + ' <span style="font-size: 0.75em; color: #fff; margin-left: 8px;">v0.1</span>';
 
             // 탭 버튼
@@ -1064,12 +1849,406 @@
             document.querySelector('#settings h3').textContent = t.userManagement;
             document.querySelector('#settings .btn').textContent = t.btnSave;
 
+            // AI 업로드 섹션
+            const aiSectionTitle = document.querySelector('.ai-upload-section h3');
+            if (aiSectionTitle) {
+                aiSectionTitle.textContent = t.aiAutoFill;
+            }
+            const aiTabBtns = document.querySelectorAll('.ai-tab-btn');
+            aiTabBtns[0].textContent = t.aiTabImage;
+            aiTabBtns[1].textContent = t.aiTabText;
+            document.querySelector('.upload-text').textContent = t.uploadImage;
+            document.querySelector('.upload-hint').textContent = t.uploadHint;
+            document.getElementById('textInput').placeholder = t.textPlaceholder;
+            document.querySelector('.btn-extract').textContent = t.btnExtract;
+            document.getElementById('clearImageBtn').textContent = t.clearImage;
+            document.querySelector('.processing-text').textContent = t.processing;
+
+            // 로그아웃 버튼과 사용자 정보
+            const logoutBtn = document.querySelector('.logout-btn');
+            if (logoutBtn) {
+                logoutBtn.textContent = t.logout;
+            }
+
+            // 사용자 정보 업데이트
+            const currentUser = localStorage.getItem(STORAGE_KEYS.currentUser);
+            if (currentUser) {
+                const user = JSON.parse(currentUser);
+                document.getElementById('userInfo').textContent =
+                    `${t.loggedInAs}: ${user.name} (${user.role})`;
+            }
+
+            // 날짜/시간 업데이트 (언어 변경 반영)
+            updateDateTime();
+
             // 목록 새로고침
             renderVehicleList(currentFilter);
         }
 
+        // ========== AI 이미지 업로드 및 OCR 기능 ==========
+
+        // AI 섹션 토글
+        function toggleAISection() {
+            const content = document.getElementById('aiSectionContent');
+            const icon = document.querySelector('.ai-toggle-icon');
+
+            content.classList.toggle('expanded');
+            icon.classList.toggle('expanded');
+        }
+
+        // AI 탭 전환
+        function switchAITab(tab) {
+            const tabs = document.querySelectorAll('.ai-tab-content');
+            const btns = document.querySelectorAll('.ai-tab-btn');
+
+            tabs.forEach(t => t.classList.remove('active'));
+            btns.forEach(b => b.classList.remove('active'));
+
+            if (tab === 'image') {
+                document.getElementById('imageTab').classList.add('active');
+                btns[0].classList.add('active');
+            } else {
+                document.getElementById('textTab').classList.add('active');
+                btns[1].classList.add('active');
+            }
+        }
+
+        // 텍스트에서 정보 추출
+        function extractFromText() {
+            const text = document.getElementById('textInput').value;
+            if (!text.trim()) {
+                alert('텍스트를 입력해주세요.');
+                return;
+            }
+
+            const t = TRANSLATIONS[currentLang];
+
+            // 텍스트 추출 함수 호출
+            extractAndFillForm(text);
+
+            // 성공 메시지
+            const successMsg = document.getElementById('successMessage');
+            successMsg.textContent = t.extractSuccess;
+            successMsg.classList.add('show');
+            setTimeout(() => {
+                successMsg.classList.remove('show');
+                successMsg.textContent = t.successMessage;
+            }, 3000);
+
+            // 텍스트 입력창 초기화
+            document.getElementById('textInput').value = '';
+        }
+
+        // 이미지 업로드 영역 이벤트 리스너
+        const uploadArea = document.getElementById('uploadArea');
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+        const clearImageBtn = document.getElementById('clearImageBtn');
+        const processingOverlay = document.getElementById('processingOverlay');
+
+        // 클릭하여 파일 선택
+        uploadArea.addEventListener('click', () => {
+            imageInput.click();
+        });
+
+        // 드래그 앤 드롭 이벤트
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleImageUpload(files[0]);
+            }
+        });
+
+        // 파일 선택 이벤트
+        imageInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleImageUpload(e.target.files[0]);
+            }
+        });
+
+        // 이미지 제거 버튼
+        clearImageBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            imagePreview.style.display = 'none';
+            clearImageBtn.style.display = 'none';
+            imageInput.value = '';
+        });
+
+        // 이미지 업로드 처리
+        async function handleImageUpload(file) {
+            if (!file.type.startsWith('image/')) {
+                alert('이미지 파일만 업로드 가능합니다.');
+                return;
+            }
+
+            // 이미지 미리보기
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+                clearImageBtn.style.display = 'inline-block';
+            };
+            reader.readAsDataURL(file);
+
+            // OCR 처리
+            await performOCR(file);
+        }
+
+        // OCR 처리 함수
+        async function performOCR(imageFile) {
+            const t = TRANSLATIONS[currentLang];
+            processingOverlay.classList.add('show');
+
+            try {
+                const { data: { text } } = await Tesseract.recognize(
+                    imageFile,
+                    'rus+eng', // 러시아어 + 영어
+                    {
+                        logger: info => {
+                            // 진행 상황 로깅 (선택사항)
+                            if (info.status === 'recognizing text') {
+                                const progress = Math.round(info.progress * 100);
+                                document.querySelector('.processing-text').textContent =
+                                    `${t.processing} ${progress}%`;
+                            }
+                        }
+                    }
+                );
+
+                // 텍스트 파싱 및 폼 채우기
+                extractAndFillForm(text);
+
+                processingOverlay.classList.remove('show');
+
+                // 성공 메시지
+                const successMsg = document.getElementById('successMessage');
+                successMsg.textContent = t.extractSuccess;
+                successMsg.classList.add('show');
+                setTimeout(() => {
+                    successMsg.classList.remove('show');
+                    successMsg.textContent = t.successMessage;
+                }, 3000);
+
+            } catch (error) {
+                console.error('OCR 오류:', error);
+                processingOverlay.classList.remove('show');
+                alert(t.extractError);
+            }
+        }
+
+        // 텍스트에서 정보 추출 및 폼 채우기
+        function extractAndFillForm(text) {
+            console.log('추출된 텍스트:', text);
+
+            const learningData = loadLearningData();
+            const extractedData = {
+                clientName: '',
+                orderNumber: '',
+                headNumber: '',
+                trailerNumber: '',
+                driverName: '',
+                driverPassport: '',
+                driverPhone: '',
+                entryTime: ''
+            };
+
+            // 여권 번호 - 라벨 포함 처리 (Паспорт:, Passport: 등)
+            // 키릴 문자와 라틴 문자 모두 지원
+            let passportMatch = text.match(/(?:Паспорт|Passport|паспорт|passport):\s*([A-ZА-ЯЁ]{2}\s?\d{7,8})/i);
+            if (!passportMatch) {
+                // 라벨 없이 패턴만 찾기
+                passportMatch = text.match(/[A-ZА-ЯЁ]{2}\s?\d{7,8}/i);
+            }
+            if (passportMatch) {
+                let passport = (passportMatch[1] || passportMatch[0]).replace(/\s/g, '').toUpperCase();
+                // 키릴 문자를 라틴 문자로 변환 (М->M, С->C, Н->H 등)
+                passport = passport.replace(/М/g, 'M').replace(/С/g, 'C').replace(/Н/g, 'H')
+                    .replace(/А/g, 'A').replace(/В/g, 'B').replace(/Е/g, 'E')
+                    .replace(/К/g, 'K').replace(/О/g, 'O').replace(/Р/g, 'P')
+                    .replace(/Т/g, 'T').replace(/Х/g, 'X');
+
+                // 학습된 패턴 적용
+                if (learningData.passportMappings[passport]) {
+                    passport = learningData.passportMappings[passport];
+                }
+                extractedData.driverPassport = passport;
+                document.getElementById('driverPassport').value = passport;
+            }
+
+            // 차량 번호 패턴 (예: AX3623-5, A39101-5, A3910I-5)
+            // I를 1로 자동 변환
+            const vehicleMatches = text.match(/[A-Z]{1,2}\d{4,5}[-\s\/]?\d{1}|[A-Z]{1,2}\d{3,4}[I1][-\s\/]?\d{1}/gi);
+            if (vehicleMatches && vehicleMatches.length >= 1) {
+                // 첫 번째를 헤드로 (I를 1로 변환)
+                extractedData.headNumber = vehicleMatches[0].replace(/\s/g, '').replace(/\//g, '').replace(/I/gi, '1');
+                document.getElementById('headNumber').value = extractedData.headNumber;
+                // 두 번째가 있으면 트레일러로
+                if (vehicleMatches.length >= 2) {
+                    extractedData.trailerNumber = vehicleMatches[1].replace(/\s/g, '').replace(/\//g, '').replace(/I/gi, '1');
+                    document.getElementById('trailerNumber').value = extractedData.trailerNumber;
+                }
+            }
+
+            // 운전자 이름 - 라벨 포함 처리
+            // Фамилия:, Имя:, Отчество: 형식 처리
+            let surname = '', firstName = '', patronymic = '';
+
+            const surnameMatch = text.match(/(?:Фамилия|Surname|фамилия):\s*([А-ЯЁ][а-яё]+)/i);
+            if (surnameMatch) surname = surnameMatch[1];
+
+            const firstNameMatch = text.match(/(?:Имя|Name|имя):\s*([А-ЯЁ][а-яё]+)/i);
+            if (firstNameMatch) firstName = firstNameMatch[1];
+
+            const patronymicMatch = text.match(/(?:Отчество|Patronymic|отчество):\s*([А-ЯЁ][а-яё]+)/i);
+            if (patronymicMatch) patronymic = patronymicMatch[1];
+
+            // 라벨이 있는 경우
+            if (surname && firstName && patronymic) {
+                let fullName = `${surname} ${firstName} ${patronymic}`;
+                // 학습된 패턴 적용
+                if (learningData.nameMappings[fullName]) {
+                    fullName = learningData.nameMappings[fullName];
+                }
+                extractedData.driverName = fullName;
+                document.getElementById('driverName').value = fullName;
+            } else {
+                // 라벨 없이 연속된 3단어 패턴 찾기
+                const nameMatch = text.match(/([А-ЯЁ][а-яё]+)\s+([А-ЯЁ][а-яё]+)\s+([А-ЯЁ][а-яё]+)/);
+                if (nameMatch) {
+                    let fullName = `${nameMatch[1]} ${nameMatch[2]} ${nameMatch[3]}`;
+                    // 학습된 패턴 적용
+                    if (learningData.nameMappings[fullName]) {
+                        fullName = learningData.nameMappings[fullName];
+                    }
+                    extractedData.driverName = fullName;
+                    document.getElementById('driverName').value = fullName;
+                }
+            }
+
+            // 거래처명 - 학습된 패턴 우선 적용
+            let clientName = '';
+            const keywords = extractClientKeywords(text);
+            for (const keyword of keywords) {
+                if (learningData.clientMappings[keyword]) {
+                    clientName = learningData.clientMappings[keyword];
+                    break;
+                }
+            }
+            // 학습된 패턴이 없으면 기본 패턴 사용
+            if (!clientName) {
+                const clientMatch = text.match(/(?:ЛОТТЕ|LOTTE|ЛО[TТ]{2}Е)/i);
+                if (clientMatch) {
+                    clientName = 'ЛОТТЕ';
+                }
+            }
+            if (clientName) {
+                extractedData.clientName = clientName;
+                document.getElementById('clientName').value = clientName;
+            }
+
+            // 날짜 - "Дата рождения:" 라벨 무시하고 날짜만 추출
+            // 오늘 날짜를 기본으로 사용 (생년월일이 아닌 입차 날짜가 필요함)
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('entryDate').value = today;
+
+            // 만약 텍스트에 입차 날짜가 명시되어 있다면 추출
+            const entryDateMatch = text.match(/(?:Дата|Date|дата|date)(?:\s+въезда|\s+entry)?:\s*(\d{1,2})[.\-\/](\d{1,2})[.\-\/](\d{2,4})/i);
+            if (entryDateMatch) {
+                let day = entryDateMatch[1].padStart(2, '0');
+                let month = entryDateMatch[2].padStart(2, '0');
+                let year = entryDateMatch[3];
+                if (year.length === 2) {
+                    year = '20' + year;
+                }
+                document.getElementById('entryDate').value = `${year}-${month}-${day}`;
+            }
+
+            // 전화번호 (러시아 형식: +7 или 8)
+            const phoneMatch = text.match(/(?:\+7|8)\s?[\d\s\-()]{10,}/);
+            if (phoneMatch) {
+                let phone = phoneMatch[0].replace(/[\s\-()]/g, '');
+                // +7 형식으로 통일
+                if (phone.startsWith('8')) {
+                    phone = '+7' + phone.substring(1);
+                }
+                extractedData.driverPhone = phone;
+                document.getElementById('driverPhone').value = phone;
+            }
+
+            // 주문번호 패턴 - 학습된 패턴 우선 적용
+            let orderNumber = '';
+            for (const pattern in learningData.orderMappings) {
+                if (text.includes(pattern)) {
+                    orderNumber = learningData.orderMappings[pattern];
+                    break;
+                }
+            }
+            // 학습된 패턴이 없으면 기본 패턴 사용
+            if (!orderNumber) {
+                const orderMatch = text.match(/(?:№|#|N)\s?([A-Z0-9]+\/\d+|[A-Z]?\d+\/\d+)/i);
+                if (orderMatch) {
+                    orderNumber = orderMatch[1];
+                }
+            }
+            if (orderNumber) {
+                extractedData.orderNumber = orderNumber;
+                document.getElementById('orderNumber').value = orderNumber;
+            }
+
+            // 추출된 데이터와 원본 텍스트 저장 (학습용)
+            localStorage.setItem(STORAGE_KEYS.lastOcrExtraction, JSON.stringify({
+                originalText: text,
+                extractedData: extractedData,
+                timestamp: new Date().toISOString()
+            }));
+        }
+
+        // 실시간 날짜/시간 업데이트
+        function updateDateTime() {
+            const now = new Date();
+            const t = TRANSLATIONS[currentLang];
+
+            // 날짜 형식 (러시아어/한국어)
+            let dateStr;
+            if (currentLang === 'ru') {
+                const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+                               'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+                dateStr = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()} г.`;
+            } else {
+                dateStr = `${now.getFullYear()}년 ${(now.getMonth() + 1)}월 ${now.getDate()}일`;
+            }
+
+            // 시간 형식 (24시간)
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeStr = `${hours}:${minutes}:${seconds}`;
+
+            // DOM 업데이트
+            const dateElement = document.getElementById('currentDate');
+            const timeElement = document.getElementById('currentTime');
+
+            if (dateElement) dateElement.textContent = dateStr;
+            if (timeElement) timeElement.textContent = timeStr;
+        }
+
         // 초기화
         window.addEventListener('load', function() {
+            // 로그인 폼 이벤트 리스너
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+
             // 저장된 언어 불러오기
             const savedLang = localStorage.getItem(STORAGE_KEYS.language) || 'ru';
             currentLang = savedLang;
@@ -1085,6 +2264,9 @@
 
             // 언어 적용
             updateLanguage();
+
+            // 로그인 상태 확인
+            checkLoginStatus();
 
             renderUserSelect();
 

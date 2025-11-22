@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Backup files
+*.backup.*
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*~
+
+# IDE
+.vscode/
+.idea/
+
+# Local environment files
+.env
+.env.local
