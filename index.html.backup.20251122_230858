@@ -354,52 +354,10 @@
                 gap: 10px;
             }
         }
-
-        .lang-selector {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            gap: 5px;
-            background: rgba(255,255,255,0.2);
-            padding: 5px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
-
-        .lang-btn {
-            padding: 8px 16px;
-            border: none;
-            background: transparent;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 15px;
-            transition: all 0.3s;
-        }
-
-        .lang-btn.active {
-            background: white;
-            color: #ED1C24;
-        }
-
-        .lang-btn:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        .lang-btn.active:hover {
-            background: white;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- 언어 선택 -->
-        <div class="lang-selector">
-            <button class="lang-btn active" onclick="switchLanguage('ru')">RUS</button>
-            <button class="lang-btn" onclick="switchLanguage('ko')">KOR</button>
-        </div>
-
         <div class="header">
             <div class="lotte-logo">
                 <img src="logo.png" alt="Lotte Logo" onerror="this.style.display='none'">
@@ -544,147 +502,10 @@
     </div>
 
     <script>
-        // 번역 객체
-        const TRANSLATIONS = {
-            ru: {
-                // 헤더
-                title: '🚛 Система регистрации въезда транспорта',
-                subtitle: 'Система регистрации въезда транспорта | Vehicle Entry Registration System',
-
-                // 탭
-                tabRegister: 'Регистрация',
-                tabList: 'Статус',
-                tabSettings: 'Настройки',
-
-                // 차량 등록 폼
-                registerTitle: '🚛 Регистрация транспорта',
-                userName: 'Имя регистратора *',
-                selectPlaceholder: 'Выберите',
-                entryDate: 'Дата въезда *',
-                clientName: 'Название клиента *',
-                clientPlaceholder: 'Введите название клиента',
-                orderNumber: 'Номер заказа *',
-                orderPlaceholder: 'Введите номер заказа',
-                headNumber: 'Номер головы *',
-                headPlaceholder: 'Номер контейнера головы',
-                trailerNumber: 'Номер прицепа *',
-                trailerPlaceholder: 'Номер прицепа',
-                driverName: 'Имя водителя *',
-                driverNamePlaceholder: 'Имя водителя',
-                driverPassport: 'Номер паспорта *',
-                passportPlaceholder: 'Номер паспорта',
-                driverPhone: 'Телефон водителя *',
-                phonePlaceholder: '+7 XXX XXX XX XX',
-                entryTime: 'Время въезда *',
-                entryCompleted: 'Въезд завершён',
-                submitBtn: 'Зарегистрировать',
-                successMessage: '✅ Транспорт успешно зарегистрирован!',
-
-                // 등록 현황
-                listTitle: '📋 Статус регистрации',
-                searchPlaceholder: '🔍 Поиск (номер авто, клиент, заказ, водитель)',
-                filterAll: 'Все',
-                filterToday: 'Сегодня',
-                filterPending: 'Ожидание',
-                filterCompleted: 'Завершено',
-                noVehicles: 'Нет зарегистрированных транспортов',
-                statusCompleted: 'Завершено',
-                statusPending: 'Ожидание',
-                btnToggleComplete: 'Изменить на ожидание',
-                btnTogglePending: 'Изменить на завершено',
-                btnEdit: 'Редактировать',
-                btnDelete: 'Удалить',
-                registeredBy: 'Регистрация',
-
-                // 설정
-                settingsTitle: '⚙️ Настройки',
-                googleSheetUrl: 'Google Sheets URL',
-                googleSheetPlaceholder: 'Введите URL Google Apps Script',
-                userManagement: '👥 Управление пользователями',
-                btnSave: '💾 Сохранить настройки',
-
-                // 메시지
-                passwordPrompt: 'Введите пароль администратора:',
-                passwordWrong: 'Неверный пароль',
-                deleteConfirm: 'Вы уверены, что хотите удалить?',
-                deleteOwnOnly: 'Вы можете удалить только свои записи',
-                editOwnOnly: 'Вы можете редактировать только свои записи',
-                settingsSaved: 'Настройки сохранены'
-            },
-            ko: {
-                // 헤더
-                title: '🚛 차량 입차 등록 시스템',
-                subtitle: 'Система регистрации въезда транспорта | Vehicle Entry Registration System',
-
-                // 탭
-                tabRegister: '차량 등록',
-                tabList: '등록 현황',
-                tabSettings: '설정',
-
-                // 차량 등록 폼
-                registerTitle: '🚛 차량 정보 등록',
-                userName: '입력자 이름 *',
-                selectPlaceholder: '선택하세요',
-                entryDate: '입차 날짜 *',
-                clientName: '거래처명 *',
-                clientPlaceholder: '거래처명 입력',
-                orderNumber: '주문번호 *',
-                orderPlaceholder: '주문번호 입력',
-                headNumber: '헤드 번호 *',
-                headPlaceholder: '컨테이너 헤드 번호',
-                trailerNumber: '트레일러 번호 *',
-                trailerPlaceholder: '트레일러 번호',
-                driverName: '운전자 이름 *',
-                driverNamePlaceholder: '운전자 이름',
-                driverPassport: '운전자 여권번호 *',
-                passportPlaceholder: '여권번호',
-                driverPhone: '운전자 전화번호 *',
-                phonePlaceholder: '+7 XXX XXX XX XX',
-                entryTime: '입차 예정 시각 *',
-                entryCompleted: '입차 완료',
-                submitBtn: '등록하기',
-                successMessage: '✅ 차량 정보가 성공적으로 등록되었습니다!',
-
-                // 등록 현황
-                listTitle: '📋 등록 현황',
-                searchPlaceholder: '🔍 검색 (차량번호, 거래처명, 주문번호, 운전자명)',
-                filterAll: '전체',
-                filterToday: '오늘',
-                filterPending: '입차 대기',
-                filterCompleted: '입차 완료',
-                noVehicles: '등록된 차량이 없습니다',
-                statusCompleted: '입차완료',
-                statusPending: '입차대기',
-                btnToggleComplete: '대기로 변경',
-                btnTogglePending: '완료로 변경',
-                btnEdit: '수정',
-                btnDelete: '삭제',
-                registeredBy: '등록',
-
-                // 설정
-                settingsTitle: '⚙️ 설정',
-                googleSheetUrl: 'Google Sheets URL',
-                googleSheetPlaceholder: 'Google Apps Script URL 입력',
-                userManagement: '👥 사용자 관리',
-                btnSave: '💾 설정 저장',
-
-                // 메시지
-                passwordPrompt: '관리자 비밀번호를 입력하세요:',
-                passwordWrong: '비밀번호가 틀렸습니다',
-                deleteConfirm: '정말 삭제하시겠습니까?',
-                deleteOwnOnly: '본인이 등록한 차량만 삭제할 수 있습니다',
-                editOwnOnly: '본인이 등록한 차량만 수정할 수 있습니다',
-                settingsSaved: '설정이 저장되었습니다'
-            }
-        };
-
-        let currentLang = 'ru'; // 기본 언어: 러시아어
-
         const STORAGE_KEYS = {
             vehicles: 'vehicleRegistrations',
             settings: 'vehicleSettings',
-            users: 'vehicleUsers',
-            language: 'preferredLanguage'
+            users: 'vehicleUsers'
         };
 
         // 기본 사용자 목록
@@ -715,7 +536,7 @@
                 users: loadSettings().users
             };
             localStorage.setItem(STORAGE_KEYS.settings, JSON.stringify(settings));
-            alert(TRANSLATIONS[currentLang].settingsSaved);
+            alert('설정이 저장되었습니다.');
         }
 
         // 차량 등록 데이터 불러오기
@@ -820,10 +641,8 @@
             // 날짜 최신순 정렬
             filteredVehicles.sort((a, b) => new Date(b.registeredAt) - new Date(a.registeredAt));
 
-            const t = TRANSLATIONS[currentLang];
-
             if (filteredVehicles.length === 0) {
-                container.innerHTML = `<p style="text-align: center; color: #999; padding: 40px;">${t.noVehicles}</p>`;
+                container.innerHTML = '<p style="text-align: center; color: #999; padding: 40px;">등록된 차량이 없습니다.</p>';
                 return;
             }
 
@@ -841,19 +660,19 @@
                                 👤 ${vehicle.driverName} |
                                 📱 ${vehicle.driverPhone} |
                                 🛂 ${vehicle.driverPassport}<br>
-                                <span style="color: #999; font-size: 0.85rem;">${t.registeredBy}: ${vehicle.registeredBy} (${new Date(vehicle.registeredAt).toLocaleString('ko-KR')})</span>
+                                <span style="color: #999; font-size: 0.85rem;">등록: ${vehicle.registeredBy} (${new Date(vehicle.registeredAt).toLocaleString('ko-KR')})</span>
                             </div>
                         </div>
                         <span class="status-badge ${vehicle.entryCompleted ? 'status-completed' : 'status-pending'}">
-                            ${vehicle.entryCompleted ? t.statusCompleted : t.statusPending}
+                            ${vehicle.entryCompleted ? '입차완료' : '입차대기'}
                         </span>
                     </div>
                     <div class="vehicle-actions">
                         <button class="btn btn-small btn-success" onclick="toggleEntryStatus(${vehicle.id})">
-                            ${vehicle.entryCompleted ? t.btnToggleComplete : t.btnTogglePending}
+                            ${vehicle.entryCompleted ? '대기로 변경' : '완료로 변경'}
                         </button>
-                        <button class="btn btn-small btn-secondary" onclick="editVehicle(${vehicle.id})">${t.btnEdit}</button>
-                        <button class="btn btn-small btn-danger" onclick="deleteVehicle(${vehicle.id}, '${vehicle.registeredBy}')">${t.btnDelete}</button>
+                        <button class="btn btn-small btn-secondary" onclick="editVehicle(${vehicle.id})">수정</button>
+                        <button class="btn btn-small btn-danger" onclick="deleteVehicle(${vehicle.id}, '${vehicle.registeredBy}')">삭제</button>
                     </div>
                 </div>
             `).join('');
@@ -876,11 +695,11 @@
 
             // 본인이 등록한 것만 삭제 가능
             if (userName !== registeredBy) {
-                alert(TRANSLATIONS[currentLang].deleteOwnOnly);
+                alert('본인이 등록한 차량만 삭제할 수 있습니다.');
                 return;
             }
 
-            if (confirm(TRANSLATIONS[currentLang].deleteConfirm)) {
+            if (confirm('정말 삭제하시겠습니까?')) {
                 let vehicles = loadVehicles();
                 vehicles = vehicles.filter(v => v.id !== id);
                 saveVehicles(vehicles);
@@ -899,7 +718,7 @@
 
             // 본인이 등록한 것만 수정 가능
             if (userName !== vehicle.registeredBy) {
-                alert(TRANSLATIONS[currentLang].editOwnOnly);
+                alert('본인이 등록한 차량만 수정할 수 있습니다.');
                 return;
             }
 
@@ -969,9 +788,9 @@
         function switchTab(tabName) {
             // 설정 탭은 비밀번호 확인
             if (tabName === 'settings') {
-                const password = prompt(TRANSLATIONS[currentLang].passwordPrompt);
+                const password = prompt('관리자 비밀번호를 입력하세요:');
                 if (password !== '1234') {
-                    alert(TRANSLATIONS[currentLang].passwordWrong);
+                    alert('비밀번호가 틀렸습니다.');
                     return;
                 }
             }
@@ -994,98 +813,8 @@
             }
         }
 
-        // 언어 전환 함수
-        function switchLanguage(lang) {
-            currentLang = lang;
-            localStorage.setItem(STORAGE_KEYS.language, lang);
-
-            // 버튼 active 상태 업데이트
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            // UI 업데이트
-            updateLanguage();
-        }
-
-        // 언어에 맞게 UI 업데이트
-        function updateLanguage() {
-            const t = TRANSLATIONS[currentLang];
-
-            // 헤더
-            document.querySelector('.header h1').textContent = t.title;
-            document.querySelector('.subtitle').innerHTML = t.subtitle + ' <span style="font-size: 0.75em; color: #fff; margin-left: 8px;">v0.1</span>';
-
-            // 탭 버튼
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            tabBtns[0].textContent = t.tabRegister;
-            tabBtns[1].textContent = t.tabList;
-            tabBtns[2].textContent = t.tabSettings;
-
-            // 차량 등록 폼
-            document.querySelector('#register h2').textContent = t.registerTitle;
-            document.querySelector('label[for="userName"]').textContent = t.userName;
-            document.querySelector('#userName option[value=""]').textContent = t.selectPlaceholder;
-            document.querySelector('label[for="entryDate"]').textContent = t.entryDate;
-            document.querySelector('label[for="clientName"]').textContent = t.clientName;
-            document.getElementById('clientName').placeholder = t.clientPlaceholder;
-            document.querySelector('label[for="orderNumber"]').textContent = t.orderNumber;
-            document.getElementById('orderNumber').placeholder = t.orderPlaceholder;
-            document.querySelector('label[for="headNumber"]').textContent = t.headNumber;
-            document.getElementById('headNumber').placeholder = t.headPlaceholder;
-            document.querySelector('label[for="trailerNumber"]').textContent = t.trailerNumber;
-            document.getElementById('trailerNumber').placeholder = t.trailerPlaceholder;
-            document.querySelector('label[for="driverName"]').textContent = t.driverName;
-            document.getElementById('driverName').placeholder = t.driverNamePlaceholder;
-            document.querySelector('label[for="driverPassport"]').textContent = t.driverPassport;
-            document.getElementById('driverPassport').placeholder = t.passportPlaceholder;
-            document.querySelector('label[for="driverPhone"]').textContent = t.driverPhone;
-            document.getElementById('driverPhone').placeholder = t.phonePlaceholder;
-            document.querySelector('label[for="entryTime"]').textContent = t.entryTime;
-            document.querySelector('label[for="entryCompleted"]').textContent = t.entryCompleted;
-            document.getElementById('submitBtn').textContent = t.submitBtn;
-            document.getElementById('successMessage').textContent = t.successMessage;
-
-            // 등록 현황
-            document.querySelector('#list h2').textContent = t.listTitle;
-            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
-
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            filterBtns[0].textContent = t.filterAll;
-            filterBtns[1].textContent = t.filterToday;
-            filterBtns[2].textContent = t.filterPending;
-            filterBtns[3].textContent = t.filterCompleted;
-
-            // 설정
-            document.querySelector('#settings h2').textContent = t.settingsTitle;
-            document.querySelector('label[for="googleSheetUrl"]').textContent = t.googleSheetUrl;
-            document.getElementById('googleSheetUrl').placeholder = t.googleSheetPlaceholder;
-            document.querySelector('#settings h3').textContent = t.userManagement;
-            document.querySelector('#settings .btn').textContent = t.btnSave;
-
-            // 목록 새로고침
-            renderVehicleList(currentFilter);
-        }
-
         // 초기화
         window.addEventListener('load', function() {
-            // 저장된 언어 불러오기
-            const savedLang = localStorage.getItem(STORAGE_KEYS.language) || 'ru';
-            currentLang = savedLang;
-
-            // 언어 버튼 업데이트
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if ((savedLang === 'ru' && btn.textContent === 'RUS') ||
-                    (savedLang === 'ko' && btn.textContent === 'KOR')) {
-                    btn.classList.add('active');
-                }
-            });
-
-            // 언어 적용
-            updateLanguage();
-
             renderUserSelect();
 
             // 오늘 날짜 자동 설정
