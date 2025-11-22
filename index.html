@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>차량 입차 등록 시스템 | Lotte KF</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #ED1C24 0%, #C8102E 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .lotte-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .lotte-logo img {
+            height: 50px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #ED1C24;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #ED1C24;
+            box-shadow: 0 0 0 3px rgba(237, 28, 36, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #ED1C24;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #C8102E;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(237, 28, 36, 0.4);
+        }
+
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-success {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .vehicle-list {
+            margin-top: 20px;
+        }
+
+        .vehicle-item {
+            padding: 15px;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+        }
+
+        .vehicle-item:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-color: #ED1C24;
+        }
+
+        .vehicle-item.completed {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+
+        .vehicle-item.pending {
+            background: #fff3e0;
+            border-color: #ff9800;
+        }
+
+        .vehicle-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .vehicle-info {
+            flex: 1;
+        }
+
+        .vehicle-number {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .vehicle-details {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .status-completed {
+            background: #4caf50;
+            color: white;
+        }
+
+        .status-pending {
+            background: #ff9800;
+            color: white;
+        }
+
+        .vehicle-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+
+        .btn-secondary {
+            background: #757575;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: #ED1C24;
+            color: white;
+            border-color: #ED1C24;
+        }
+
+        .success-message {
+            background: #d4edda;
+            border: 2px solid #4caf50;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .vehicle-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="lotte-logo">
+                <img src="logo.png" alt="Lotte Logo" onerror="this.style.display='none'">
+                Happy Moments
+            </div>
+            <h1>🚛 차량 입차 등록 시스템</h1>
+            <div class="subtitle">Система регистрации въезда транспорта | Vehicle Entry Registration System <span style="font-size: 0.75em; color: #fff; margin-left: 8px;">v0.1</span></div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('register')">차량 등록</button>
+            <button class="tab-btn" onclick="switchTab('list')">등록 현황</button>
+            <button class="tab-btn" onclick="switchTab('settings')">설정</button>
+        </div>
+
+        <!-- 차량 등록 탭 -->
+        <div id="register" class="tab-content active">
+            <div class="card">
+                <h2 style="color: #ED1C24; margin-bottom: 20px;">🚛 차량 정보 등록</h2>
+
+                <div class="success-message" id="successMessage">
+                    ✅ 차량 정보가 성공적으로 등록되었습니다!
+                </div>
+
+                <form id="vehicleForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="userName">입력자 이름 *</label>
+                            <select id="userName" required>
+                                <option value="">선택하세요</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="entryDate">입차 날짜 *</label>
+                            <input type="date" id="entryDate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="clientName">거래처명 *</label>
+                            <input type="text" id="clientName" placeholder="거래처명 입력" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="orderNumber">주문번호 *</label>
+                            <input type="text" id="orderNumber" placeholder="주문번호 입력" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="headNumber">헤드 번호 *</label>
+                            <input type="text" id="headNumber" placeholder="컨테이너 헤드 번호" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="trailerNumber">트레일러 번호 *</label>
+                            <input type="text" id="trailerNumber" placeholder="트레일러 번호" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="driverName">운전자 이름 *</label>
+                            <input type="text" id="driverName" placeholder="운전자 이름" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="driverPassport">운전자 여권번호 *</label>
+                            <input type="text" id="driverPassport" placeholder="여권번호" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="driverPhone">운전자 전화번호 *</label>
+                            <input type="tel" id="driverPhone" placeholder="+7 XXX XXX XX XX" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="entryTime">입차 예정 시각 *</label>
+                            <input type="time" id="entryTime" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="entryCompleted">
+                            <label for="entryCompleted">입차 완료</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+                        등록하기
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 등록 현황 탭 -->
+        <div id="list" class="tab-content">
+            <div class="card">
+                <h2 style="color: #ED1C24; margin-bottom: 20px;">📋 등록 현황</h2>
+
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="🔍 검색 (차량번호, 거래처명, 주문번호, 운전자명)">
+                </div>
+
+                <div class="filter-tabs">
+                    <button class="filter-btn active" onclick="filterVehicles('all')">전체</button>
+                    <button class="filter-btn" onclick="filterVehicles('today')">오늘</button>
+                    <button class="filter-btn" onclick="filterVehicles('pending')">입차 대기</button>
+                    <button class="filter-btn" onclick="filterVehicles('completed')">입차 완료</button>
+                </div>
+
+                <div class="vehicle-list" id="vehicleList">
+                    <!-- 차량 목록이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 설정 탭 -->
+        <div id="settings" class="tab-content">
+            <div class="card">
+                <h2 style="color: #ED1C24; margin-bottom: 20px;">⚙️ 설정</h2>
+
+                <div class="form-group">
+                    <label>Google Sheets URL</label>
+                    <input type="text" id="googleSheetUrl" placeholder="Google Apps Script URL 입력">
+                </div>
+
+                <h3 style="margin-top: 30px; color: #ED1C24; font-size: 1.1rem;">👥 사용자 관리</h3>
+                <div id="userManagement"></div>
+
+                <button class="btn btn-primary btn-full" onclick="saveSettings()" style="margin-top: 20px;">
+                    💾 설정 저장
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEYS = {
+            vehicles: 'vehicleRegistrations',
+            settings: 'vehicleSettings',
+            users: 'vehicleUsers'
+        };
+
+        // 기본 사용자 목록
+        const DEFAULT_USERS = [
+            { name: '조성민', role: '영업팀', isActive: true },
+            { name: '김영업', role: '영업팀', isActive: true },
+            { name: '이물류', role: '물류팀', isActive: true },
+            { name: '박창고', role: '창고', isActive: true },
+            { name: '최경비', role: '경비', isActive: true }
+        ];
+
+        // 설정 불러오기
+        function loadSettings() {
+            const settings = localStorage.getItem(STORAGE_KEYS.settings);
+            if (settings) {
+                return JSON.parse(settings);
+            }
+            return {
+                googleSheetUrl: '',
+                users: DEFAULT_USERS
+            };
+        }
+
+        // 설정 저장
+        function saveSettings() {
+            const settings = {
+                googleSheetUrl: document.getElementById('googleSheetUrl').value,
+                users: loadSettings().users
+            };
+            localStorage.setItem(STORAGE_KEYS.settings, JSON.stringify(settings));
+            alert('설정이 저장되었습니다.');
+        }
+
+        // 차량 등록 데이터 불러오기
+        function loadVehicles() {
+            const vehicles = localStorage.getItem(STORAGE_KEYS.vehicles);
+            return vehicles ? JSON.parse(vehicles) : [];
+        }
+
+        // 차량 등록 데이터 저장
+        function saveVehicles(vehicles) {
+            localStorage.setItem(STORAGE_KEYS.vehicles, JSON.stringify(vehicles));
+        }
+
+        // 사용자 목록 렌더링
+        function renderUserSelect() {
+            const settings = loadSettings();
+            const select = document.getElementById('userName');
+            select.innerHTML = '<option value="">선택하세요</option>';
+
+            settings.users.filter(u => u.isActive).forEach(user => {
+                const option = document.createElement('option');
+                option.value = user.name;
+                option.textContent = `${user.name} (${user.role})`;
+                select.appendChild(option);
+            });
+
+            // 마지막 선택 사용자 복원
+            const lastUser = localStorage.getItem('lastSelectedUser');
+            if (lastUser) {
+                select.value = lastUser;
+            }
+        }
+
+        // 차량 등록 폼 제출
+        document.getElementById('vehicleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const userName = document.getElementById('userName').value;
+            const vehicle = {
+                id: Date.now(),
+                registeredBy: userName,
+                registeredAt: new Date().toISOString(),
+                entryDate: document.getElementById('entryDate').value,
+                clientName: document.getElementById('clientName').value,
+                orderNumber: document.getElementById('orderNumber').value,
+                headNumber: document.getElementById('headNumber').value,
+                trailerNumber: document.getElementById('trailerNumber').value,
+                driverName: document.getElementById('driverName').value,
+                driverPassport: document.getElementById('driverPassport').value,
+                driverPhone: document.getElementById('driverPhone').value,
+                entryTime: document.getElementById('entryTime').value,
+                entryCompleted: document.getElementById('entryCompleted').checked
+            };
+
+            const vehicles = loadVehicles();
+            vehicles.push(vehicle);
+            saveVehicles(vehicles);
+
+            // 성공 메시지 표시
+            const successMsg = document.getElementById('successMessage');
+            successMsg.classList.add('show');
+            setTimeout(() => successMsg.classList.remove('show'), 3000);
+
+            // 폼 초기화
+            document.getElementById('vehicleForm').reset();
+            document.getElementById('userName').value = userName;
+            localStorage.setItem('lastSelectedUser', userName);
+
+            // Google Sheets 동기화 (있는 경우)
+            syncToGoogleSheet(vehicle);
+        });
+
+        // 차량 목록 렌더링
+        function renderVehicleList(filter = 'all') {
+            const vehicles = loadVehicles();
+            const container = document.getElementById('vehicleList');
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+
+            let filteredVehicles = vehicles;
+
+            // 필터 적용
+            if (filter === 'today') {
+                const today = new Date().toISOString().split('T')[0];
+                filteredVehicles = vehicles.filter(v => v.entryDate === today);
+            } else if (filter === 'pending') {
+                filteredVehicles = vehicles.filter(v => !v.entryCompleted);
+            } else if (filter === 'completed') {
+                filteredVehicles = vehicles.filter(v => v.entryCompleted);
+            }
+
+            // 검색어 적용
+            if (searchQuery) {
+                filteredVehicles = filteredVehicles.filter(v =>
+                    v.headNumber.toLowerCase().includes(searchQuery) ||
+                    v.trailerNumber.toLowerCase().includes(searchQuery) ||
+                    v.clientName.toLowerCase().includes(searchQuery) ||
+                    v.orderNumber.toLowerCase().includes(searchQuery) ||
+                    v.driverName.toLowerCase().includes(searchQuery)
+                );
+            }
+
+            // 날짜 최신순 정렬
+            filteredVehicles.sort((a, b) => new Date(b.registeredAt) - new Date(a.registeredAt));
+
+            if (filteredVehicles.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #999; padding: 40px;">등록된 차량이 없습니다.</p>';
+                return;
+            }
+
+            container.innerHTML = filteredVehicles.map(vehicle => `
+                <div class="vehicle-item ${vehicle.entryCompleted ? 'completed' : 'pending'}">
+                    <div class="vehicle-header">
+                        <div class="vehicle-info">
+                            <div class="vehicle-number">
+                                🚛 ${vehicle.headNumber} / ${vehicle.trailerNumber}
+                            </div>
+                            <div class="vehicle-details">
+                                📅 ${vehicle.entryDate} ${vehicle.entryTime} |
+                                🏢 ${vehicle.clientName} |
+                                📦 ${vehicle.orderNumber}<br>
+                                👤 ${vehicle.driverName} |
+                                📱 ${vehicle.driverPhone} |
+                                🛂 ${vehicle.driverPassport}<br>
+                                <span style="color: #999; font-size: 0.85rem;">등록: ${vehicle.registeredBy} (${new Date(vehicle.registeredAt).toLocaleString('ko-KR')})</span>
+                            </div>
+                        </div>
+                        <span class="status-badge ${vehicle.entryCompleted ? 'status-completed' : 'status-pending'}">
+                            ${vehicle.entryCompleted ? '입차완료' : '입차대기'}
+                        </span>
+                    </div>
+                    <div class="vehicle-actions">
+                        <button class="btn btn-small btn-success" onclick="toggleEntryStatus(${vehicle.id})">
+                            ${vehicle.entryCompleted ? '대기로 변경' : '완료로 변경'}
+                        </button>
+                        <button class="btn btn-small btn-secondary" onclick="editVehicle(${vehicle.id})">수정</button>
+                        <button class="btn btn-small btn-danger" onclick="deleteVehicle(${vehicle.id}, '${vehicle.registeredBy}')">삭제</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 입차 상태 토글
+        function toggleEntryStatus(id) {
+            const vehicles = loadVehicles();
+            const vehicle = vehicles.find(v => v.id === id);
+            if (vehicle) {
+                vehicle.entryCompleted = !vehicle.entryCompleted;
+                saveVehicles(vehicles);
+                renderVehicleList();
+            }
+        }
+
+        // 차량 정보 삭제
+        function deleteVehicle(id, registeredBy) {
+            const userName = localStorage.getItem('lastSelectedUser');
+
+            // 본인이 등록한 것만 삭제 가능
+            if (userName !== registeredBy) {
+                alert('본인이 등록한 차량만 삭제할 수 있습니다.');
+                return;
+            }
+
+            if (confirm('정말 삭제하시겠습니까?')) {
+                let vehicles = loadVehicles();
+                vehicles = vehicles.filter(v => v.id !== id);
+                saveVehicles(vehicles);
+                renderVehicleList();
+            }
+        }
+
+        // 차량 정보 수정
+        function editVehicle(id) {
+            const vehicles = loadVehicles();
+            const vehicle = vehicles.find(v => v.id === id);
+
+            if (!vehicle) return;
+
+            const userName = localStorage.getItem('lastSelectedUser');
+
+            // 본인이 등록한 것만 수정 가능
+            if (userName !== vehicle.registeredBy) {
+                alert('본인이 등록한 차량만 수정할 수 있습니다.');
+                return;
+            }
+
+            // 등록 탭으로 이동
+            switchTab('register');
+
+            // 폼에 데이터 채우기
+            document.getElementById('userName').value = vehicle.registeredBy;
+            document.getElementById('entryDate').value = vehicle.entryDate;
+            document.getElementById('clientName').value = vehicle.clientName;
+            document.getElementById('orderNumber').value = vehicle.orderNumber;
+            document.getElementById('headNumber').value = vehicle.headNumber;
+            document.getElementById('trailerNumber').value = vehicle.trailerNumber;
+            document.getElementById('driverName').value = vehicle.driverName;
+            document.getElementById('driverPassport').value = vehicle.driverPassport;
+            document.getElementById('driverPhone').value = vehicle.driverPhone;
+            document.getElementById('entryTime').value = vehicle.entryTime;
+            document.getElementById('entryCompleted').checked = vehicle.entryCompleted;
+
+            // 기존 데이터 삭제 (수정 후 새로 등록)
+            const updatedVehicles = vehicles.filter(v => v.id !== id);
+            saveVehicles(updatedVehicles);
+        }
+
+        // 필터 변경
+        let currentFilter = 'all';
+        function filterVehicles(filter) {
+            currentFilter = filter;
+
+            // 버튼 스타일 업데이트
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            renderVehicleList(filter);
+        }
+
+        // 검색
+        document.getElementById('searchInput').addEventListener('input', function() {
+            renderVehicleList(currentFilter);
+        });
+
+        // Google Sheets 동기화
+        async function syncToGoogleSheet(vehicle) {
+            const settings = loadSettings();
+            if (!settings.googleSheetUrl) return;
+
+            try {
+                await fetch(settings.googleSheetUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'addVehicle',
+                        data: vehicle
+                    })
+                });
+            } catch (error) {
+                console.error('Google Sheets 동기화 실패:', error);
+            }
+        }
+
+        // 탭 전환
+        function switchTab(tabName) {
+            // 설정 탭은 비밀번호 확인
+            if (tabName === 'settings') {
+                const password = prompt('관리자 비밀번호를 입력하세요:');
+                if (password !== '1234') {
+                    alert('비밀번호가 틀렸습니다.');
+                    return;
+                }
+            }
+
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'list') {
+                renderVehicleList(currentFilter);
+            } else if (tabName === 'settings') {
+                const settings = loadSettings();
+                document.getElementById('googleSheetUrl').value = settings.googleSheetUrl;
+            }
+        }
+
+        // 초기화
+        window.addEventListener('load', function() {
+            renderUserSelect();
+
+            // 오늘 날짜 자동 설정
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('entryDate').value = today;
+        });
+    </script>
+</body>
+</html>
