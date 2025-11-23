@@ -1889,9 +1889,37 @@
             updateLanguage();
         }
 
+        // 안전하게 요소 업데이트하는 헬퍼 함수
+        function safeSetText(selector, text, isId = false) {
+            try {
+                const element = isId ? document.getElementById(selector) : document.querySelector(selector);
+                if (element) {
+                    element.textContent = text;
+                    return true;
+                }
+                return false;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function safeSetPlaceholder(id, text) {
+            try {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.placeholder = text;
+                    return true;
+                }
+                return false;
+            } catch (e) {
+                return false;
+            }
+        }
+
         // 언어에 맞게 UI 업데이트
         function updateLanguage() {
-            const t = TRANSLATIONS[currentLang];
+            try {
+                const t = TRANSLATIONS[currentLang];
 
             // 로그인 페이지
             document.getElementById('loginTitle').textContent = t.loginTitle;
@@ -1903,20 +1931,23 @@
             document.getElementById('loginError').textContent = t.loginError;
 
             // 헤더
-            const headerH1 = document.querySelector('.header h1');
-            if (headerH1) {
-                headerH1.textContent = t.title;
+            safeSetText('.header h1', t.title);
+
+            const subtitleEl = document.querySelector('.subtitle');
+            if (subtitleEl) {
+                subtitleEl.innerHTML = t.subtitle + ' <span style="font-size: 0.75em; color: #fff; margin-left: 8px;">v0.1</span>';
             }
-            document.querySelector('.subtitle').innerHTML = t.subtitle + ' <span style="font-size: 0.75em; color: #fff; margin-left: 8px;">v0.1</span>';
 
             // 탭 버튼
             const tabBtns = document.querySelectorAll('.tab-btn');
-            tabBtns[0].textContent = t.tabRegister;
-            tabBtns[1].textContent = t.tabList;
-            tabBtns[2].textContent = t.tabSettings;
+            if (tabBtns.length >= 3) {
+                tabBtns[0].textContent = t.tabRegister;
+                tabBtns[1].textContent = t.tabList;
+                tabBtns[2].textContent = t.tabSettings;
+            }
 
             // 차량 등록 폼
-            document.querySelector('#register h2').textContent = t.registerTitle;
+            safeSetText('#register h2', t.registerTitle);
             document.querySelector('label[for="userName"]').textContent = t.userName;
             document.querySelector('#userName option[value=""]').textContent = t.selectPlaceholder;
             document.querySelector('label[for="entryDate"]').textContent = t.entryDate;
@@ -1940,7 +1971,7 @@
             document.getElementById('successMessage').textContent = t.successMessage;
 
             // 등록 현황
-            document.querySelector('#list h2').textContent = t.listTitle;
+            safeSetText('#list h2', t.listTitle);
             document.getElementById('searchInput').placeholder = t.searchPlaceholder;
 
             const filterBtns = document.querySelectorAll('.filter-btn');
@@ -1952,26 +1983,27 @@
             document.getElementById('exportBtnText').textContent = t.exportBtn;
 
             // 설정
-            document.querySelector('#settings h2').textContent = t.settingsTitle;
-            document.querySelector('label[for="googleSheetUrl"]').textContent = t.googleSheetUrl;
-            document.getElementById('googleSheetUrl').placeholder = t.googleSheetPlaceholder;
-            document.querySelector('#settings h3').textContent = t.userManagement;
-            document.querySelector('#settings .btn').textContent = t.btnSave;
+            safeSetText('#settings h2', t.settingsTitle);
+            safeSetText('label[for="googleSheetUrl"]', t.googleSheetUrl);
+            safeSetPlaceholder('googleSheetUrl', t.googleSheetPlaceholder);
+            safeSetText('#settings h3', t.userManagement);
+            safeSetText('#settings .btn', t.btnSave);
 
             // AI 업로드 섹션
-            const aiSectionTitle = document.querySelector('.ai-upload-section h3');
-            if (aiSectionTitle) {
-                aiSectionTitle.textContent = t.aiAutoFill;
-            }
+            safeSetText('.ai-upload-section h3', t.aiAutoFill);
+
             const aiTabBtns = document.querySelectorAll('.ai-tab-btn');
-            aiTabBtns[0].textContent = t.aiTabImage;
-            aiTabBtns[1].textContent = t.aiTabText;
-            document.querySelector('.upload-text').textContent = t.uploadImage;
-            document.querySelector('.upload-hint').textContent = t.uploadHint;
-            document.getElementById('textInput').placeholder = t.textPlaceholder;
-            document.querySelector('.btn-extract').textContent = t.btnExtract;
-            document.getElementById('clearImageBtn').textContent = t.clearImage;
-            document.querySelector('.processing-text').textContent = t.processing;
+            if (aiTabBtns.length >= 2) {
+                aiTabBtns[0].textContent = t.aiTabImage;
+                aiTabBtns[1].textContent = t.aiTabText;
+            }
+
+            safeSetText('.upload-text', t.uploadImage);
+            safeSetText('.upload-hint', t.uploadHint);
+            safeSetPlaceholder('textInput', t.textPlaceholder);
+            safeSetText('.btn-extract', t.btnExtract);
+            safeSetText('#clearImageBtn', t.clearImage, true);
+            safeSetText('.processing-text', t.processing);
 
             // 로그아웃 버튼과 사용자 정보
             const logoutBtn = document.querySelector('.logout-btn');
@@ -1987,11 +2019,15 @@
                     `${t.loggedInAs}: ${user.name} (${user.role})`;
             }
 
-            // 날짜/시간 업데이트 (언어 변경 반영)
-            updateDateTime();
+                // 날짜/시간 업데이트 (언어 변경 반영)
+                updateDateTime();
 
-            // 목록 새로고침
-            renderVehicleList(currentFilter);
+                // 목록 새로고침
+                renderVehicleList(currentFilter);
+            } catch (error) {
+                console.error('updateLanguage error:', error);
+                // 오류가 발생해도 계속 진행 (일부 요소가 없을 수 있음)
+            }
         }
 
         // ========== AI 이미지 업로드 및 OCR 기능 ==========
