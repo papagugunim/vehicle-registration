@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>차량 입차 등록 시스템 | Lotte KF</title>
+    <title>롯데제과 러시아법인 공장 차량 출입 관리 시스템</title>
     <style>
         * {
             margin: 0;
@@ -13,104 +13,248 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
             background: linear-gradient(135deg, #ED1C24 0%, #C8102E 100%);
+            min-height: 100vh;
+        }
+
+        /* 로그인 페이지 */
+        #loginPage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
             padding: 20px;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 420px;
+            width: 100%;
+            animation: fadeIn 0.5s;
         }
 
-        .header {
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-logo {
             text-align: center;
-            color: white;
+            margin-bottom: 30px;
+        }
+
+        .login-logo h1 {
+            color: #ED1C24;
+            font-size: 1.8rem;
             margin-bottom: 10px;
         }
 
-        .lotte-logo {
+        .login-logo p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ED1C24;
+        }
+
+        .remember-me {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-            font-weight: 700;
+            margin-bottom: 20px;
         }
 
-        .lotte-logo img {
-            height: 30px;
+        .remember-me input {
             width: auto;
+            margin-right: 8px;
         }
 
-        .datetime-display {
+        .remember-me label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #ED1C24;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #C8102E;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(237, 28, 36, 0.4);
+        }
+
+        .login-error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
             text-align: center;
+            display: none;
+        }
+
+        .login-error.show {
+            display: block;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
+        }
+
+        /* 메인 앱 */
+        #mainApp {
+            display: none;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        #mainApp.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .header {
             background: white;
-            color: #333;
-            font-size: 0.85rem;
-            margin: 8px auto;
-            padding: 6px 15px;
-            border-radius: 25px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            display: inline-block;
-            font-weight: 500;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .datetime-display .date {
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-right: 10px;
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .logo-section h1 {
             color: #ED1C24;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
         }
 
-        .datetime-display .time {
+        .logo-section p {
+            color: #666;
             font-size: 0.9rem;
-            font-weight: 700;
-            color: #333;
         }
 
-        .header h1 {
-            font-size: 1.2rem;
-            margin-bottom: 4px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        .user-section {
+            text-align: right;
         }
 
-        .subtitle {
-            font-size: 0.75rem;
-            opacity: 0.95;
-            line-height: 1.2;
+        .user-info {
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .btn-logout {
+            background: #f5f5f5;
+            color: #666;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: #e0e0e0;
         }
 
         .tabs {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
         }
 
         .tab-btn {
             flex: 1;
             padding: 12px;
             border: none;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            font-size: 0.95rem;
-            font-weight: 700;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-weight: 600;
+            border-radius: 10px;
             cursor: pointer;
-            border-radius: 12px;
             transition: all 0.3s;
-            backdrop-filter: blur(10px);
         }
 
         .tab-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: white;
         }
 
         .tab-btn.active {
+            background: #ED1C24;
+            color: white;
+            box-shadow: 0 5px 15px rgba(237, 28, 36, 0.3);
+        }
+
+        .card {
             background: white;
-            color: #ED1C24;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
         }
 
         .tab-content {
@@ -122,680 +266,47 @@
             animation: fadeIn 0.3s;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .form-group {
+        h2 {
+            color: #ED1C24;
             margin-bottom: 20px;
         }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-
-        input[type="text"],
-        input[type="date"],
-        input[type="time"],
-        input[type="tel"],
-        select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: #ED1C24;
-            box-shadow: 0 0 0 3px rgba(237, 28, 36, 0.1);
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-
-        .checkbox-group label {
-            margin: 0;
-            cursor: pointer;
-        }
-
-        .btn {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
+        /* Welcome 메시지 */
+        .welcome-message {
             text-align: center;
+            padding: 60px 20px;
         }
 
-        .btn-primary {
-            background: #ED1C24;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #C8102E;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(237, 28, 36, 0.4);
-        }
-
-        .btn-primary:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-success {
-            background: #4caf50;
-            color: white;
-        }
-
-        .btn-full {
-            width: 100%;
-        }
-
-        .vehicle-list {
-            margin-top: 20px;
-        }
-
-        .vehicle-item {
-            padding: 15px;
-            border: 2px solid #f0f0f0;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            transition: all 0.3s;
-        }
-
-        .vehicle-item:hover {
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border-color: #ED1C24;
-        }
-
-        .vehicle-item.completed {
-            background: #e8f5e9;
-            border-color: #4caf50;
-        }
-
-        .vehicle-item.pending {
-            background: #fff3e0;
-            border-color: #ff9800;
-        }
-
-        .vehicle-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .vehicle-info {
-            flex: 1;
-        }
-
-        .vehicle-number {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .vehicle-details {
-            color: #666;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .status-badge {
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-        }
-
-        .status-completed {
-            background: #4caf50;
-            color: white;
-        }
-
-        .status-pending {
-            background: #ff9800;
-            color: white;
-        }
-
-        .vehicle-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .btn-small {
-            padding: 6px 12px;
-            font-size: 0.85rem;
-        }
-
-        .btn-secondary {
-            background: #757575;
-            color: white;
-        }
-
-        .btn-danger {
-            background: #f44336;
-            color: white;
-        }
-
-        .search-box {
-            margin-bottom: 20px;
-        }
-
-        .search-box input {
-            width: 100%;
-        }
-
-        .filter-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .filter-btn {
-            padding: 8px 16px;
-            border: 2px solid #e0e0e0;
-            background: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .filter-btn.active {
-            background: #ED1C24;
-            color: white;
-            border-color: #ED1C24;
-        }
-
-        .export-section {
-            display: flex;
-            justify-content: flex-end;
+        .welcome-message h2 {
+            font-size: 2rem;
             margin-bottom: 15px;
         }
 
-        .export-btn {
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+        .welcome-message p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
 
-        .export-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
-        }
-
-        .export-btn:active {
-            transform: translateY(0);
-        }
-
-        .success-message {
-            background: #d4edda;
-            border: 2px solid #4caf50;
-            color: #155724;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-            display: none;
-        }
-
-        .success-message.show {
-            display: block;
-            animation: fadeIn 0.4s;
-        }
-
+        /* 모바일 반응형 */
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.5rem;
+            .header-top {
+                flex-direction: column;
+                text-align: center;
             }
 
-            .form-row {
-                grid-template-columns: 1fr;
+            .user-section {
+                text-align: center;
+                margin-top: 15px;
             }
 
             .tabs {
                 flex-direction: column;
             }
 
-            .vehicle-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
+            .login-card {
+                padding: 40px 30px;
             }
-        }
-
-        .lang-selector {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            gap: 5px;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
-
-        .lang-btn {
-            padding: 8px 16px;
-            border: none;
-            background: transparent;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 15px;
-            transition: all 0.3s;
-        }
-
-        .lang-btn.active {
-            background: white;
-            color: #ED1C24;
-        }
-
-        .lang-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .lang-btn.active:hover {
-            background: white;
-        }
-
-        /* AI 이미지 업로드 영역 */
-        .ai-upload-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            margin-bottom: 25px;
-            color: white;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .ai-section-header {
-            padding: 10px 15px;
-            cursor: default;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            user-select: none;
-        }
-
-        .ai-section-header h3 {
-            margin: 0;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .ai-toggle-icon {
-            display: none;
-        }
-
-        .ai-section-content {
-            padding: 10px 15px 15px 15px;
-            max-height: none;
-            overflow: visible;
-        }
-
-        .upload-area {
-            background: rgba(255, 255, 255, 0.15);
-            border: 2px dashed rgba(255, 255, 255, 0.5);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .upload-area:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.8);
-        }
-
-        .upload-area.dragover {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: white;
-            transform: scale(1.02);
-        }
-
-        .upload-icon {
-            font-size: 2rem;
-            margin-bottom: 8px;
-            opacity: 0.9;
-        }
-
-        .upload-text {
-            font-size: 1rem;
-            margin-bottom: 5px;
-        }
-
-        .upload-hint {
-            font-size: 0.85rem;
-            opacity: 0.8;
-        }
-
-        #imagePreview {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 10px;
-            margin-top: 12px;
-            display: none;
-        }
-
-        .processing-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .processing-overlay.show {
-            display: flex;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .processing-text {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .btn-clear-image {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 8px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 8px;
-            margin-top: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-clear-image:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        /* AI 탭 */
-        .ai-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .ai-tab-btn {
-            flex: 1;
-            padding: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .ai-tab-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .ai-tab-btn.active {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: white;
-        }
-
-        .ai-tab-content {
-            display: none;
-        }
-
-        .ai-tab-content.active {
-            display: block;
-        }
-
-        #textInput {
-            width: 100%;
-            min-height: 100px;
-            padding: 12px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            font-size: 0.9rem;
-            font-family: monospace;
-            resize: vertical;
-        }
-
-        #textInput::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .btn-extract {
-            background: white;
-            color: #667eea;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: all 0.3s;
-        }
-
-        .btn-extract:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        /* 로그인 페이지 */
-        #loginPage {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .login-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            max-width: 400px;
-            width: 100%;
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .login-header h1 {
-            color: #ED1C24;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-
-        .login-header p {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .login-form .form-group {
-            margin-bottom: 20px;
-        }
-
-        .login-form label {
-            display: block;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .login-form input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        .login-form input:focus {
-            outline: none;
-            border-color: #ED1C24;
-            box-shadow: 0 0 0 3px rgba(237, 28, 36, 0.1);
-        }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .remember-me input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        .remember-me label {
-            margin: 0;
-            cursor: pointer;
-            font-weight: normal;
-        }
-
-        .login-error {
-            background: #ffebee;
-            color: #c62828;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        .login-error.show {
-            display: block;
-        }
-
-        .logout-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .user-info {
-            position: absolute;
-            top: 70px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            backdrop-filter: blur(10px);
-        }
-
-        #mainApp {
-            display: none;
-        }
-
-        #mainApp.show {
-            display: block;
         }
     </style>
 </head>
@@ -803,545 +314,242 @@
 <body>
     <!-- 로그인 페이지 -->
     <div id="loginPage">
-        <!-- 로그인 페이지 언어 선택 -->
-        <div class="lang-selector">
-            <button class="lang-btn active" onclick="switchLanguage('ru')">RUS</button>
-            <button class="lang-btn" onclick="switchLanguage('ko')">KOR</button>
-        </div>
-
         <div class="login-card">
-            <div class="login-header">
-                <div class="lotte-logo" style="justify-content: center; color: #ED1C24;">
-                    Happy Moments
-                </div>
-                <h1 id="loginTitle">🚛 차량 입차 등록 시스템</h1>
-                <p id="loginSubtitle">Lotte KF 러시아법인</p>
+            <div class="login-logo">
+                <h1>🚛 차량 출입 관리</h1>
+                <p>롯데제과 러시아법인 공장</p>
             </div>
 
             <div class="login-error" id="loginError">
                 아이디 또는 비밀번호가 올바르지 않습니다
             </div>
 
-            <form class="login-form" id="loginForm">
+            <form id="loginForm">
                 <div class="form-group">
-                    <label for="loginUsername" id="loginUsernameLabel">아이디</label>
-                    <input type="text" id="loginUsername" required autocomplete="username">
+                    <label for="username">아이디</label>
+                    <input type="text" id="username" name="username" required autocomplete="username">
                 </div>
 
                 <div class="form-group">
-                    <label for="loginPassword" id="loginPasswordLabel">비밀번호</label>
-                    <input type="password" id="loginPassword" required autocomplete="current-password">
+                    <label for="password">비밀번호</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password">
                 </div>
 
                 <div class="remember-me">
-                    <input type="checkbox" id="rememberMe">
-                    <label for="rememberMe" id="rememberMeLabel">로그인 상태 유지</label>
+                    <input type="checkbox" id="rememberMe" name="rememberMe">
+                    <label for="rememberMe">로그인 상태 유지</label>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-full" id="loginBtn">
-                    로그인
-                </button>
+                <button type="submit" class="btn btn-primary">로그인</button>
             </form>
         </div>
     </div>
 
     <!-- 메인 앱 -->
     <div id="mainApp">
-        <div class="container">
-            <!-- 로그아웃 버튼 -->
-            <button class="logout-btn" onclick="logout()">🚪 로그아웃</button>
-
-            <!-- 사용자 정보 -->
-            <div class="user-info" id="userInfo"></div>
-
-            <!-- 언어 선택 -->
-            <div class="lang-selector">
-                <button class="lang-btn active" onclick="switchLanguage('ru')">RUS</button>
-                <button class="lang-btn" onclick="switchLanguage('ko')">KOR</button>
-            </div>
-
-            <div class="header">
-                <div class="lotte-logo">
-                    <img src="logo.png" alt="Lotte Logo" onerror="this.style.display='none'">
-                    Happy Moments
+        <div class="header">
+            <div class="header-top">
+                <div class="logo-section">
+                    <h1>🏭 롯데제과 러시아법인 공장 차량 출입 관리 시스템</h1>
+                    <p>Factory Vehicle Access Management System</p>
                 </div>
-                <h1>🚛 차량 입차 등록 시스템</h1>
-                <div class="subtitle">Система регистрации въезда транспорта | Vehicle Entry Registration System <span
-                        style="font-size: 0.75em; color: #fff; margin-left: 8px;">v0.1</span></div>
-                <div class="datetime-display">
-                    <span class="date" id="currentDate">Loading...</span>
-                    <span class="time" id="currentTime"></span>
+                <div class="user-section">
+                    <div class="user-info" id="userInfo"></div>
+                    <button class="btn-logout" onclick="logout()">🚪 로그아웃</button>
                 </div>
             </div>
 
             <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('register')">차량 등록</button>
+                <button class="tab-btn active" onclick="switchTab('welcome')">홈</button>
+                <button class="tab-btn" onclick="switchTab('register')">차량 등록</button>
                 <button class="tab-btn" onclick="switchTab('list')">등록 현황</button>
-                <button class="tab-btn" onclick="switchTab('settings')">설정</button>
-                <button class="tab-btn" id="clientsTabBtn" onclick="window.location.href='clients.html'"
-                    style="display: none;">🏢 거래처 관리</button>
+                <button class="tab-btn" id="clientsTab" onclick="location.href='clients.html'" style="display: none;">🏢
+                    거래처 관리</button>
             </div>
+        </div>
 
-            <!-- 차량 등록 탭 -->
-            <div id="register" class="tab-content active">
-                <div class="card">
-                    <h2 style="color: #ED1C24; margin-bottom: 20px;">🚛 차량 정보 등록</h2>
-
-                    <div class="success-message" id="successMessage">
-                        ✅ 차량 정보가 성공적으로 등록되었습니다!
-                    </div>
-
-                    <!-- AI 이미지 업로드 섹션 -->
-                    <div class="ai-upload-section">
-                        <!-- 헤더 -->
-                        <div class="ai-section-header">
-                            <h3>🤖 AI 자동 입력</h3>
-                        </div>
-
-                        <!-- 콘텐츠 -->
-                        <div class="ai-section-content" id="aiSectionContent">
-                            <!-- AI 탭 -->
-                            <div class="ai-tabs">
-                                <button type="button" class="ai-tab-btn active" onclick="switchAITab('image')">📸 이미지
-                                    업로드</button>
-                                <button type="button" class="ai-tab-btn" onclick="switchAITab('text')">📝 텍스트
-                                    붙여넣기</button>
-                            </div>
-
-                            <!-- 이미지 업로드 탭 -->
-                            <div class="ai-tab-content active" id="imageTab">
-                                <div class="upload-area" id="uploadArea">
-                                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
-                                    <div class="upload-icon">📸</div>
-                                    <div class="upload-text">위임장 이미지를 업로드하세요</div>
-                                    <div class="upload-hint">클릭하거나 이미지를 드래그하세요 (PNG, JPG, PDF)</div>
-                                </div>
-                                <img id="imagePreview" alt="Preview">
-                                <button type="button" class="btn-clear-image" id="clearImageBtn"
-                                    style="display: none;">이미지 제거</button>
-                            </div>
-
-                            <!-- 텍스트 붙여넣기 탭 -->
-                            <div class="ai-tab-content" id="textTab">
-                                <textarea id="textInput"
-                                    placeholder="이메일에서 받은 위임장 텍스트를 여기에 붙여넣으세요...&#10;&#10;예시:&#10;Гаврис Денис Викторович&#10;Паспорт MC3544098&#10;AX3623-5 / A39101-5&#10;ЛОТТЕ"></textarea>
-                                <button type="button" class="btn-extract" onclick="extractFromText()">정보 추출하기</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <form id="vehicleForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="userName">입력자 이름 *</label>
-                                <select id="userName" required>
-                                    <option value="">선택하세요</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="entryDate">입차 날짜 *</label>
-                                <input type="date" id="entryDate" required>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="clientName">거래처명 *</label>
-                                <input type="text" id="clientName" placeholder="거래처명 입력" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="orderNumber">주문번호</label>
-                                <input type="text" id="orderNumber" placeholder="주문번호 입력">
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="headNumber">헤드 번호 *</label>
-                                <input type="text" id="headNumber" placeholder="컨테이너 헤드 번호" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="trailerNumber">트레일러 번호 *</label>
-                                <input type="text" id="trailerNumber" placeholder="트레일러 번호" required>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="driverName">운전자 이름 *</label>
-                                <input type="text" id="driverName" placeholder="운전자 이름" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="driverPassport">운전자 여권번호 *</label>
-                                <input type="text" id="driverPassport" placeholder="여권번호" required>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="driverPhone">운전자 전화번호</label>
-                                <input type="tel" id="driverPhone" placeholder="+7 XXX XXX XX XX">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="entryTime">입차 예정 시각</label>
-                                <input type="time" id="entryTime" min="08:00" max="20:00">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="entryCompleted">
-                                <label for="entryCompleted">입차 완료</label>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
-                            등록하기
-                        </button>
-                    </form>
+        <!-- Welcome 탭 -->
+        <div id="welcome" class="tab-content active">
+            <div class="card">
+                <div class="welcome-message">
+                    <h2>환영합니다! 👋</h2>
+                    <p>롯데제과 러시아법인 공장 차량 출입 관리 시스템입니다.<br>
+                        상단 탭에서 원하는 메뉴를 선택하세요.</p>
                 </div>
             </div>
+        </div>
 
-            <!-- 등록 현황 탭 -->
-            <div id="list" class="tab-content">
-                <div class="card">
-                    <h2 style="color: #ED1C24; margin-bottom: 20px;">📋 등록 현황</h2>
-
-                    <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="🔍 검색 (차량번호, 거래처명, 주문번호, 운전자명)">
-                    </div>
-
-                    <div class="filter-tabs">
-                        <button class="filter-btn active" onclick="filterVehicles('all')">전체</button>
-                        <button class="filter-btn" onclick="filterVehicles('today')">오늘</button>
-                        <button class="filter-btn" onclick="filterVehicles('pending')">입차 대기</button>
-                        <button class="filter-btn" onclick="filterVehicles('completed')">입차 완료</button>
-                    </div>
-
-                    <div class="export-section">
-                        <button class="export-btn" onclick="exportToCSV()">
-                            <span>📊</span>
-                            <span id="exportBtnText">CSV 내보내기</span>
-                        </button>
-                    </div>
-
-                    <div class="vehicle-list" id="vehicleList">
-                        <!-- 차량 목록이 여기에 표시됩니다 -->
-                    </div>
-                </div>
+        <!-- 차량 등록 탭 -->
+        <div id="register" class="tab-content">
+            <div class="card">
+                <h2>🚛 차량 등록</h2>
+                <p>차량 등록 기능은 곧 추가됩니다...</p>
             </div>
+        </div>
 
-            <!-- 설정 탭 -->
-            <div id="settings" class="tab-content">
-                <div class="card">
-                    <h2 style="color: #ED1C24; margin-bottom: 20px;">⚙️ 설정</h2>
-
-                    <div class="form-group">
-                        <label>Google Sheets URL</label>
-                        <input type="text" id="googleSheetUrl" placeholder="Google Apps Script URL 입력">
-                    </div>
-
-                    <h3 style="margin-top: 30px; color: #ED1C24; font-size: 1.1rem;">👥 사용자 관리</h3>
-                    <div id="userManagement"></div>
-
-                    <button class="btn btn-primary btn-full" onclick="saveSettings()" style="margin-top: 20px;">
-                        💾 설정 저장
-                    </button>
-                </div>
+        <!-- 등록 현황 탭 -->
+        <div id="list" class="tab-content">
+            <div class="card">
+                <h2>📋 등록 현황</h2>
+                <p>등록 현황 기능은 곧 추가됩니다...</p>
             </div>
         </div>
     </div>
 
-    <!-- 처리 중 오버레이 -->
-    <div class="processing-overlay" id="processingOverlay">
-        <div class="spinner"></div>
-        <div class="processing-text">이미지 분석 중...</div>
-    </div>
-
-    <!-- Tesseract.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-
     <script>
-        // 번역 객체
-        const TRANSLATIONS = {
-            ru: {
-                // 헤더
-                title: '🚛 Система регистрации въезда транспорта',
-                subtitle: 'Система регистрации въезда транспорта | Vehicle Entry Registration System',
-
-                // 탭
-                tabRegister: 'Регистрация',
-                tabList: 'Статус',
-                tabSettings: 'Настройки',
-
-                // 차량 등록 폼
-                registerTitle: '🚛 Регистрация транспорта',
-                userName: 'Имя регистратора *',
-                selectPlaceholder: 'Выберите',
-                entryDate: 'Дата въезда *',
-                clientName: 'Название клиента *',
-                clientPlaceholder: 'Введите название клиента',
-                orderNumber: 'Номер заказа',
-                orderPlaceholder: 'Введите номер заказа',
-                headNumber: 'Номер головы *',
-                headPlaceholder: 'Номер контейнера головы',
-                trailerNumber: 'Номер прицепа *',
-                trailerPlaceholder: 'Номер прицепа',
-                driverName: 'Имя водителя *',
-                driverNamePlaceholder: 'Имя водителя',
-                driverPassport: 'Номер паспорта *',
-                passportPlaceholder: 'Номер паспорта',
-                driverPhone: 'Телефон водителя',
-                phonePlaceholder: '+7 XXX XXX XX XX',
-                entryTime: 'Время въезда',
-                entryCompleted: 'Въезд завершён',
-                submitBtn: 'Зарегистрировать',
-                successMessage: '✅ Транспорт успешно зарегистрирован!',
-
-                // 등록 현황
-                listTitle: '📋 Статус регистрации',
-                searchPlaceholder: '🔍 Поиск (номер авто, клиент, заказ, водитель)',
-                filterAll: 'Все',
-                filterToday: 'Сегодня',
-                filterPending: 'Ожидание',
-                filterCompleted: 'Завершено',
-                exportBtn: 'Экспорт в CSV',
-                noVehicles: 'Нет зарегистрированных транспортов',
-                statusCompleted: 'Завершено',
-                statusPending: 'Ожидание',
-                btnToggleComplete: 'Изменить на ожидание',
-                btnTogglePending: 'Изменить на завершено',
-                btnEdit: 'Редактировать',
-                btnDelete: 'Удалить',
-                registeredBy: 'Регистрация',
-
-                // 설정
-                settingsTitle: '⚙️ Настройки',
-                googleSheetUrl: 'Google Sheets URL',
-                googleSheetPlaceholder: 'Введите URL Google Apps Script',
-                userManagement: '👥 Управление пользователями',
-                btnSave: '💾 Сохранить настройки',
-
-                // 메시지
-                passwordPrompt: 'Введите пароль администратора:',
-                passwordWrong: 'Неверный пароль',
-                deleteConfirm: 'Вы уверены, что хотите удалить?',
-                deleteOwnOnly: 'Вы можете удалить только свои записи',
-                editOwnOnly: 'Вы можете редактировать только свои записи',
-                settingsSaved: 'Настройки сохранены',
-
-                // AI 이미지 업로드
-                aiAutoFill: '🤖 AI Автозаполнение',
-                aiTabImage: '📸 Загрузка изображения',
-                aiTabText: '📝 Вставить текст',
-                uploadImage: 'Загрузите изображение доверенности',
-                uploadHint: 'Нажмите или перетащите изображение (PNG, JPG, PDF)',
-                textPlaceholder: 'Вставьте текст доверенности из email...\n\nПример:\nГаврис Денис Викторович\nПаспорт MC3544098\nAX3623-5 / A39101-5\nЛОТТЕ',
-                btnExtract: 'Извлечь информацию',
-                clearImage: 'Удалить изображение',
-                processing: 'Анализ изображения...',
-                extractSuccess: '✅ Информация успешно извлечена!',
-                extractError: '❌ Ошибка при анализе изображения',
-
-                // 로그인
-                loginTitle: '🚛 Система регистрации въезда транспорта',
-                loginSubtitle: 'Lotte KF Российский филиал',
-                username: 'Логин',
-                password: 'Пароль',
-                rememberMe: 'Запомнить меня',
-                loginBtn: 'Войти',
-                loginError: 'Неверный логин или пароль',
-                logout: '🚪 Выйти',
-                loggedInAs: 'Вошли как'
-            },
-            ko: {
-                // 헤더
-                title: '🚛 차량 입차 등록 시스템',
-                subtitle: 'Система регистрации въезда транспорта | Vehicle Entry Registration System',
-
-                // 탭
-                tabRegister: '차량 등록',
-                tabList: '등록 현황',
-                tabSettings: '설정',
-
-                // 차량 등록 폼
-                registerTitle: '🚛 차량 정보 등록',
-                userName: '입력자 이름 *',
-                selectPlaceholder: '선택하세요',
-                entryDate: '입차 날짜 *',
-                clientName: '거래처명 *',
-                clientPlaceholder: '거래처명 입력',
-                orderNumber: '주문번호',
-                orderPlaceholder: '주문번호 입력',
-                headNumber: '헤드 번호 *',
-                headPlaceholder: '컨테이너 헤드 번호',
-                trailerNumber: '트레일러 번호 *',
-                trailerPlaceholder: '트레일러 번호',
-                driverName: '운전자 이름 *',
-                driverNamePlaceholder: '운전자 이름',
-                driverPassport: '운전자 여권번호 *',
-                passportPlaceholder: '여권번호',
-                driverPhone: '운전자 전화번호',
-                phonePlaceholder: '+7 XXX XXX XX XX',
-                entryTime: '입차 예정 시각',
-                entryCompleted: '입차 완료',
-                submitBtn: '등록하기',
-                successMessage: '✅ 차량 정보가 성공적으로 등록되었습니다!',
-
-                // 등록 현황
-                listTitle: '📋 등록 현황',
-                searchPlaceholder: '🔍 검색 (차량번호, 거래처명, 주문번호, 운전자명)',
-                filterAll: '전체',
-                filterToday: '오늘',
-                filterPending: '입차 대기',
-                filterCompleted: '입차 완료',
-                exportBtn: 'CSV 내보내기',
-                noVehicles: '등록된 차량이 없습니다',
-                statusCompleted: '입차완료',
-                statusPending: '입차대기',
-                btnToggleComplete: '대기로 변경',
-                btnTogglePending: '완료로 변경',
-                btnEdit: '수정',
-                btnDelete: '삭제',
-                registeredBy: '등록',
-
-                // 설정
-                settingsTitle: '⚙️ 설정',
-                googleSheetUrl: 'Google Sheets URL',
-                googleSheetPlaceholder: 'Google Apps Script URL 입력',
-                userManagement: '👥 사용자 관리',
-                btnSave: '💾 설정 저장',
-
-                // 메시지
-                passwordPrompt: '관리자 비밀번호를 입력하세요:',
-                passwordWrong: '비밀번호가 틀렸습니다',
-                deleteConfirm: '정말 삭제하시겠습니까?',
-                deleteOwnOnly: '본인이 등록한 차량만 삭제할 수 있습니다',
-                editOwnOnly: '본인이 등록한 차량만 수정할 수 있습니다',
-                settingsSaved: '설정이 저장되었습니다',
-
-                // AI 이미지 업로드
-                aiAutoFill: '🤖 AI 자동 입력',
-                aiTabImage: '📸 이미지 업로드',
-                aiTabText: '📝 텍스트 붙여넣기',
-                uploadImage: '위임장 이미지를 업로드하세요',
-                uploadHint: '클릭하거나 이미지를 드래그하세요 (PNG, JPG, PDF)',
-                textPlaceholder: '이메일에서 받은 위임장 텍스트를 여기에 붙여넣으세요...\n\n예시:\nГаврис Денис Викторович\nПаспорт MC3544098\nAX3623-5 / A39101-5\nЛОТТЕ',
-                btnExtract: '정보 추출하기',
-                clearImage: '이미지 제거',
-                processing: '이미지 분석 중...',
-                extractSuccess: '✅ 정보가 성공적으로 추출되었습니다!',
-                extractError: '❌ 이미지 분석 중 오류가 발생했습니다',
-
-                // 로그인
-                loginTitle: '🚛 차량 입차 등록 시스템',
-                loginSubtitle: 'Lotte KF 러시아법인',
-                username: '아이디',
-                password: '비밀번호',
-                rememberMe: '로그인 상태 유지',
-                loginBtn: '로그인',
-                loginError: '아이디 또는 비밀번호가 올바르지 않습니다',
-                logout: '🚪 로그아웃',
-                loggedInAs: '로그인:'
-            }
-        };
-
-        let currentLang = 'ru'; // 기본 언어: 러시아어
-        let dateTimeInterval = null; // 날짜/시간 업데이트 인터벌
-
+        // ===== 저장소 키 =====
         const STORAGE_KEYS = {
-            vehicles: 'vehicleRegistrations',
-            settings: 'vehicleSettings',
-            users: 'vehicleUsers',
-            language: 'preferredLanguage',
-            learningData: 'ocrLearningData',
-            lastOcrExtraction: 'lastOcrExtraction',
             accounts: 'userAccounts',
             currentUser: 'currentUser',
             rememberMe: 'rememberMe'
         };
 
-        // 기본 사용자 목록
-        const DEFAULT_USERS = [
-            { name: '조성민', role: '영업팀', isActive: true },
-            { name: '김영업', role: '영업팀', isActive: true },
-            { name: '이물류', role: '물류팀', isActive: true },
-            { name: '박창고', role: '창고', isActive: true },
-            { name: '최경비', role: '경비', isActive: true }
-        ];
+        // ===== 인증 모듈 =====
+        const Auth = {
+            // 비밀번호 해싱
+            hashPassword(password) {
+                const salt = 'LotteKF2025Factory';
+                return btoa(salt + password + salt);
+            },
 
-        // ========== 계정 관리 및 인증 ==========
+            // 기본 계정 데이터
+            getDefaultAccounts() {
+                return [
+                    {
+                        username: 'admin',
+                        password: this.hashPassword('1234'),
+                        name: '관리자',
+                        role: '시스템 관리자',
+                        isAdmin: true
+                    },
+                    {
+                        username: 'cho',
+                        password: this.hashPassword('1234'),
+                        name: '조성민',
+                        role: '영업 관리 차장',
+                        isAdmin: false
+                    }
+                ];
+            },
 
-        // 간단한 비밀번호 해싱 (Base64 인코딩 + Salt)
-        function hashPassword(password) {
-            const salt = 'LotteKF2025';
-            return btoa(salt + password + salt);
-        }
-
-        // 계정 데이터 불러오기
-        function loadAccounts() {
-            const accounts = localStorage.getItem(STORAGE_KEYS.accounts);
-            if (accounts) {
-                return JSON.parse(accounts);
-            }
-
-            // 기본 관리자 계정 및 직원 계정 생성
-            const defaultAccounts = [
-                {
-                    username: 'admin',
-                    password: hashPassword('1234'),
-                    name: '관리자',
-                    role: '관리자',
-                    isAdmin: true
-                },
-                {
-                    username: 'cho',
-                    password: hashPassword('1234'),
-                    name: '조성민',
-                    role: '영업팀',
-                    isAdmin: false
+            // 계정 목록 로드
+            loadAccounts() {
+                const stored = localStorage.getItem(STORAGE_KEYS.accounts);
+                if (stored) {
+                    return JSON.parse(stored);
                 }
-            ];
+                // 기본 계정 생성
+                const accounts = this.getDefaultAccounts();
+                this.saveAccounts(accounts);
+                return accounts;
+            },
 
-            saveAccounts(defaultAccounts);
-            return defaultAccounts;
-        }
+            // 계정 저장
+            saveAccounts(accounts) {
+                localStorage.setItem(STORAGE_KEYS.accounts, JSON.stringify(accounts));
+            },
 
-        // 계정 데이터 저장
-        function saveAccounts(accounts) {
-            localStorage.setItem(STORAGE_KEYS.accounts, JSON.stringify(accounts));
-        }
+            // 로그인 처리
+            login(username, password) {
+                const accounts = this.loadAccounts();
+                const hashedPassword = this.hashPassword(password);
 
-        // 로그인 처리
-        function handleLogin(event) {
-            event.preventDefault();
+                const account = accounts.find(acc =>
+                    acc.username === username && acc.password === hashedPassword
+                );
 
-            const username = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
-            const rememberMe = document.getElementById('rememberMe').checked;
-
-            const accounts = loadAccounts();
-            const hashedPassword = hashPassword(password);
-
-            const account = accounts.find(acc =>
-                acc.username === username && acc.password === hashedPassword
-            );
-
-            if (account) {
-                // 로그인 성공
-                const currentUser = {
+                return account ? {
                     username: account.username,
                     name: account.name,
                     role: account.role,
                     isAdmin: account.isAdmin || false
-                };
+                } : null;
+            },
 
-                localStorage.setItem(STORAGE_KEYS.currentUser, JSON.stringify(currentUser));
+            // 현재 사용자 가져오기
+            getCurrentUser() {
+                const stored = localStorage.getItem(STORAGE_KEYS.currentUser);
+                return stored ? JSON.parse(stored) : null;
+            },
+
+            // 현재 사용자 저장
+            setCurrentUser(user) {
+                localStorage.setItem(STORAGE_KEYS.currentUser, JSON.stringify(user));
+            },
+
+            // 로그아웃
+            logout() {
+                localStorage.removeItem(STORAGE_KEYS.currentUser);
+                const rememberMe = localStorage.getItem(STORAGE_KEYS.rememberMe);
+                if (!rememberMe) {
+                    localStorage.clear();
+                }
+            }
+        };
+
+        // ===== UI 모듈 =====
+        const UI = {
+            showLoginPage() {
+                document.getElementById('loginPage').style.display = 'flex';
+                document.getElementById('mainApp').classList.remove('show');
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('loginError').classList.remove('show');
+            },
+
+            showMainApp(user) {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('mainApp').classList.add('show');
+
+                // 사용자 정보 표시
+                document.getElementById('userInfo').textContent =
+                    `${user.name} (${user.role})`;
+
+                // Admin 사용자면 거래처 관리 탭 표시
+                if (user.isAdmin) {
+                    document.getElementById('clientsTab').style.display = 'inline-block';
+                } else {
+                    document.getElementById('clientsTab').style.display = 'none';
+                }
+            },
+
+            showError() {
+                const errorEl = document.getElementById('loginError');
+                errorEl.classList.add('show');
+                setTimeout(() => errorEl.classList.remove('show'), 3000);
+            }
+        };
+
+        // ===== 탭 전환 =====
+        function switchTab(tabName) {
+            // 모든 탭 콘텐츠 숨기기
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // 모든 탭 버튼 비활성화
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // 선택된 탭 활성화
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // ===== 로그인 폼 제출 =====
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            const user = Auth.login(username, password);
+
+            if (user) {
+                // 로그인 성공
+                Auth.setCurrentUser(user);
 
                 if (rememberMe) {
                     localStorage.setItem(STORAGE_KEYS.rememberMe, 'true');
@@ -1349,1281 +557,30 @@
                     localStorage.removeItem(STORAGE_KEYS.rememberMe);
                 }
 
-                // 사용자 선택 목록에 자동 선택
-                localStorage.setItem('lastSelectedUser', account.name);
-
-                showMainApp();
+                UI.showMainApp(user);
             } else {
                 // 로그인 실패
-                const loginError = document.getElementById('loginError');
-                loginError.classList.add('show');
-                setTimeout(() => loginError.classList.remove('show'), 3000);
+                UI.showError();
             }
-        }
+        });
 
-        // 로그아웃 처리
+        // ===== 로그아웃 =====
         function logout() {
-            const t = TRANSLATIONS[currentLang];
-
             if (confirm('정말 로그아웃하시겠습니까?')) {
-                localStorage.removeItem(STORAGE_KEYS.currentUser);
-
-                const rememberMe = localStorage.getItem(STORAGE_KEYS.rememberMe);
-                if (!rememberMe) {
-                    localStorage.removeItem('lastSelectedUser');
-                }
-
-                showLoginPage();
+                Auth.logout();
+                UI.showLoginPage();
             }
         }
 
-        // 로그인 페이지 표시
-        function showLoginPage() {
-            document.getElementById('loginPage').style.display = 'flex';
-            const currentUser = localStorage.getItem(STORAGE_KEYS.currentUser);
+        // ===== 초기화 =====
+        window.addEventListener('DOMContentLoaded', function () {
+            const user = Auth.getCurrentUser();
 
-            if (currentUser) {
-                showMainApp();
+            if (user) {
+                UI.showMainApp(user);
             } else {
-                showLoginPage();
+                UI.showLoginPage();
             }
-        }
-
-        // 설정 불러오기
-        function loadSettings() {
-            const settings = localStorage.getItem(STORAGE_KEYS.settings);
-            if (settings) {
-                return JSON.parse(settings);
-            }
-            return {
-                googleSheetUrl: '',
-                users: DEFAULT_USERS
-            };
-        }
-
-        // 설정 저장
-        function saveSettings() {
-            const settings = {
-                googleSheetUrl: document.getElementById('googleSheetUrl').value,
-                users: loadSettings().users
-            };
-            localStorage.setItem(STORAGE_KEYS.settings, JSON.stringify(settings));
-            alert(TRANSLATIONS[currentLang].settingsSaved);
-        }
-
-        // 차량 등록 데이터 불러오기
-        function loadVehicles() {
-            const vehicles = localStorage.getItem(STORAGE_KEYS.vehicles);
-            return vehicles ? JSON.parse(vehicles) : [];
-        }
-
-        // 차량 등록 데이터 저장
-        function saveVehicles(vehicles) {
-            localStorage.setItem(STORAGE_KEYS.vehicles, JSON.stringify(vehicles));
-        }
-
-        // OCR 학습 데이터 불러오기
-        function loadLearningData() {
-            const data = localStorage.getItem(STORAGE_KEYS.learningData);
-            return data ? JSON.parse(data) : {
-                clientMappings: {},    // 텍스트 패턴 -> 거래처명
-                orderMappings: {},     // 텍스트 패턴 -> 주문번호
-                nameMappings: {},      // 텍스트 패턴 -> 운전자명
-                passportMappings: {},  // 텍스트 패턴 -> 여권번호
-                totalExtractions: 0,   // 총 추출 횟수
-                corrections: 0         // 총 수정 횟수
-            };
-        }
-
-        // OCR 학습 데이터 저장
-        function saveLearningData(data) {
-            localStorage.setItem(STORAGE_KEYS.learningData, JSON.stringify(data));
-        }
-
-        // 학습 데이터 업데이트 (폼 제출 시 호출)
-        function updateLearningData(originalText, extractedData, finalData) {
-            const learningData = loadLearningData();
-            learningData.totalExtractions++;
-
-            // 거래처명 학습
-            if (extractedData.clientName !== finalData.clientName && finalData.clientName) {
-                learningData.corrections++;
-                // 원본 텍스트에서 키워드 추출
-                const keywords = extractClientKeywords(originalText);
-                keywords.forEach(keyword => {
-                    learningData.clientMappings[keyword] = finalData.clientName;
-                });
-            }
-
-            // 주문번호 학습
-            if (extractedData.orderNumber !== finalData.orderNumber && finalData.orderNumber) {
-                learningData.corrections++;
-                const orderPattern = extractOrderPattern(originalText, finalData.orderNumber);
-                if (orderPattern) {
-                    learningData.orderMappings[orderPattern] = finalData.orderNumber;
-                }
-            }
-
-            // 운전자명 학습
-            if (extractedData.driverName !== finalData.driverName && finalData.driverName) {
-                learningData.corrections++;
-                learningData.nameMappings[extractedData.driverName] = finalData.driverName;
-            }
-
-            // 여권번호 학습
-            if (extractedData.driverPassport !== finalData.driverPassport && finalData.driverPassport) {
-                learningData.corrections++;
-                learningData.passportMappings[extractedData.driverPassport] = finalData.driverPassport;
-            }
-
-            saveLearningData(learningData);
-            console.log('학습 데이터 업데이트:', learningData);
-        }
-
-        // 거래처명 키워드 추출
-        function extractClientKeywords(text) {
-            const keywords = [];
-            // 대문자 단어 추출
-            const upperWords = text.match(/[A-ZА-ЯЁ]{3,}/g);
-            if (upperWords) {
-                keywords.push(...upperWords);
-            }
-            return keywords;
-        }
-
-        // 주문번호 패턴 추출
-        function extractOrderPattern(text, orderNumber) {
-            // 주문번호 주변 텍스트 패턴 추출
-            const index = text.indexOf(orderNumber);
-            if (index > -1) {
-                return text.substring(Math.max(0, index - 20), index + orderNumber.length + 20).trim();
-            }
-            return null;
-        }
-
-        // 사용자 목록 렌더링
-        function renderUserSelect() {
-            const settings = loadSettings();
-            const select = document.getElementById('userName');
-            select.innerHTML = '<option value="">선택하세요</option>';
-
-            settings.users.filter(u => u.isActive).forEach(user => {
-                const option = document.createElement('option');
-                option.value = user.name;
-                option.textContent = `${user.name} (${user.role})`;
-                select.appendChild(option);
-            });
-
-            // 마지막 선택 사용자 복원
-            const lastUser = localStorage.getItem('lastSelectedUser');
-            if (lastUser) {
-                select.value = lastUser;
-            }
-        }
-
-        // 차량 등록 폼 제출
-        document.getElementById('vehicleForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const userName = document.getElementById('userName').value;
-            const finalData = {
-                clientName: document.getElementById('clientName').value,
-                orderNumber: document.getElementById('orderNumber').value,
-                headNumber: document.getElementById('headNumber').value,
-                trailerNumber: document.getElementById('trailerNumber').value,
-                driverName: document.getElementById('driverName').value,
-                driverPassport: document.getElementById('driverPassport').value,
-                driverPhone: document.getElementById('driverPhone').value,
-                entryTime: document.getElementById('entryTime').value
-            };
-
-            const vehicle = {
-                id: Date.now(),
-                registeredBy: userName,
-                registeredAt: new Date().toISOString(),
-                entryDate: document.getElementById('entryDate').value,
-                ...finalData,
-                entryCompleted: document.getElementById('entryCompleted').checked
-            };
-
-            // OCR 학습 데이터 업데이트
-            const lastExtraction = localStorage.getItem(STORAGE_KEYS.lastOcrExtraction);
-            if (lastExtraction) {
-                const { originalText, extractedData } = JSON.parse(lastExtraction);
-                updateLearningData(originalText, extractedData, finalData);
-                // 학습 후 삭제
-                localStorage.removeItem(STORAGE_KEYS.lastOcrExtraction);
-            }
-
-            const vehicles = loadVehicles();
-            vehicles.push(vehicle);
-            saveVehicles(vehicles);
-
-            // 성공 메시지 표시
-            const successMsg = document.getElementById('successMessage');
-            successMsg.classList.add('show');
-            setTimeout(() => successMsg.classList.remove('show'), 3000);
-
-            // 폼 초기화
-            document.getElementById('vehicleForm').reset();
-            document.getElementById('userName').value = userName;
-            localStorage.setItem('lastSelectedUser', userName);
-
-            // Google Sheets 동기화 (있는 경우)
-            syncToGoogleSheet(vehicle);
-        });
-
-        // 차량 목록 렌더링
-        function renderVehicleList(filter = 'all') {
-            const vehicles = loadVehicles();
-            const container = document.getElementById('vehicleList');
-            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
-
-            let filteredVehicles = vehicles;
-
-            // 필터 적용
-            if (filter === 'today') {
-                const today = new Date().toISOString().split('T')[0];
-                filteredVehicles = vehicles.filter(v => v.entryDate === today);
-            } else if (filter === 'pending') {
-                filteredVehicles = vehicles.filter(v => !v.entryCompleted);
-            } else if (filter === 'completed') {
-                filteredVehicles = vehicles.filter(v => v.entryCompleted);
-            }
-
-            // 검색어 적용
-            if (searchQuery) {
-                filteredVehicles = filteredVehicles.filter(v =>
-                    v.headNumber.toLowerCase().includes(searchQuery) ||
-                    v.trailerNumber.toLowerCase().includes(searchQuery) ||
-                    v.clientName.toLowerCase().includes(searchQuery) ||
-                    v.orderNumber.toLowerCase().includes(searchQuery) ||
-                    v.driverName.toLowerCase().includes(searchQuery)
-                );
-            }
-
-            // 날짜와 시간별로 정렬 (입차날짜 + 입차예정시각)
-            // 입차 예정 시각이 없으면 20:00으로 간주
-            filteredVehicles.sort((a, b) => {
-                const timeA = a.entryTime || '20:00';
-                const timeB = b.entryTime || '20:00';
-                const dateTimeA = new Date(`${a.entryDate}T${timeA}`);
-                const dateTimeB = new Date(`${b.entryDate}T${timeB}`);
-                return dateTimeA - dateTimeB;
-            });
-
-            const t = TRANSLATIONS[currentLang];
-
-            if (filteredVehicles.length === 0) {
-                container.innerHTML = `<p style="text-align: center; color: #999; padding: 40px;">${t.noVehicles}</p>`;
-                return;
-            }
-
-            container.innerHTML = filteredVehicles.map(vehicle => `
-                <div class="vehicle-item ${vehicle.entryCompleted ? 'completed' : 'pending'}">
-                    <div class="vehicle-header">
-                        <div class="vehicle-info">
-                            <div class="vehicle-number">
-                                🚛 ${vehicle.headNumber} / ${vehicle.trailerNumber}
-                            </div>
-                            <div class="vehicle-details">
-                                📅 ${vehicle.entryDate} ${vehicle.entryTime} |
-                                🏢 ${vehicle.clientName} |
-                                📦 ${vehicle.orderNumber}<br>
-                                👤 ${vehicle.driverName} |
-                                📱 ${vehicle.driverPhone} |
-                                🛂 ${vehicle.driverPassport}<br>
-                                <span style="color: #999; font-size: 0.85rem;">${t.registeredBy}: ${vehicle.registeredBy} (${new Date(vehicle.registeredAt).toLocaleString('ko-KR')})</span>
-                            </div>
-                        </div>
-                        <span class="status-badge ${vehicle.entryCompleted ? 'status-completed' : 'status-pending'}">
-                            ${vehicle.entryCompleted ? t.statusCompleted : t.statusPending}
-                        </span>
-                    </div>
-                    <div class="vehicle-actions">
-                        <button class="btn btn-small btn-success" onclick="toggleEntryStatus(${vehicle.id})">
-                            ${vehicle.entryCompleted ? t.btnToggleComplete : t.btnTogglePending}
-                        </button>
-                        <button class="btn btn-small btn-secondary" onclick="editVehicle(${vehicle.id})">${t.btnEdit}</button>
-                        <button class="btn btn-small btn-danger" onclick="deleteVehicle(${vehicle.id}, '${vehicle.registeredBy}')">${t.btnDelete}</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // 입차 상태 토글
-        function toggleEntryStatus(id) {
-            const vehicles = loadVehicles();
-            const vehicle = vehicles.find(v => v.id === id);
-            if (vehicle) {
-                vehicle.entryCompleted = !vehicle.entryCompleted;
-                saveVehicles(vehicles);
-                renderVehicleList();
-            }
-        }
-
-        // 차량 정보 삭제
-        function deleteVehicle(id, registeredBy) {
-            const userName = localStorage.getItem('lastSelectedUser');
-
-            // 본인이 등록한 것만 삭제 가능
-            if (userName !== registeredBy) {
-                alert(TRANSLATIONS[currentLang].deleteOwnOnly);
-                return;
-            }
-
-            if (confirm(TRANSLATIONS[currentLang].deleteConfirm)) {
-                let vehicles = loadVehicles();
-                vehicles = vehicles.filter(v => v.id !== id);
-                saveVehicles(vehicles);
-                renderVehicleList();
-            }
-        }
-
-        // 차량 정보 수정
-        function editVehicle(id) {
-            const vehicles = loadVehicles();
-            const vehicle = vehicles.find(v => v.id === id);
-
-            if (!vehicle) return;
-
-            const userName = localStorage.getItem('lastSelectedUser');
-
-            // 본인이 등록한 것만 수정 가능
-            if (userName !== vehicle.registeredBy) {
-                alert(TRANSLATIONS[currentLang].editOwnOnly);
-                return;
-            }
-
-            // 등록 탭으로 이동
-            switchTab('register');
-
-            // 폼에 데이터 채우기
-            document.getElementById('userName').value = vehicle.registeredBy;
-            document.getElementById('entryDate').value = vehicle.entryDate;
-            document.getElementById('clientName').value = vehicle.clientName;
-            document.getElementById('orderNumber').value = vehicle.orderNumber;
-            document.getElementById('headNumber').value = vehicle.headNumber;
-            document.getElementById('trailerNumber').value = vehicle.trailerNumber;
-            document.getElementById('driverName').value = vehicle.driverName;
-            document.getElementById('driverPassport').value = vehicle.driverPassport;
-            document.getElementById('driverPhone').value = vehicle.driverPhone;
-            document.getElementById('entryTime').value = vehicle.entryTime;
-            document.getElementById('entryCompleted').checked = vehicle.entryCompleted;
-
-            // 기존 데이터 삭제 (수정 후 새로 등록)
-            const updatedVehicles = vehicles.filter(v => v.id !== id);
-            saveVehicles(updatedVehicles);
-        }
-
-        // 필터 변경
-        let currentFilter = 'all';
-        function filterVehicles(filter) {
-            currentFilter = filter;
-
-            // 버튼 스타일 업데이트
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            renderVehicleList(filter);
-        }
-
-        // 검색
-        document.getElementById('searchInput').addEventListener('input', function () {
-            renderVehicleList(currentFilter);
-        });
-
-        // CSV 내보내기
-        function exportToCSV() {
-            const vehicles = loadVehicles();
-
-            if (vehicles.length === 0) {
-                alert(currentLang === 'ko' ? '내보낼 데이터가 없습니다.' : 'Нет данных для экспорта.');
-                return;
-            }
-
-            // CSV 헤더 (한국어/러시아어)
-            const headers = currentLang === 'ko'
-                ? ['등록일시', '등록자', '입차날짜', '거래처명', '주문번호', '헤드번호', '트레일러번호', '운전자명', '운전자여권', '운전자전화', '입차예정시각', '입차완료여부']
-                : ['Дата регистрации', 'Регистратор', 'Дата въезда', 'Клиент', 'Номер заказа', 'Номер тягача', 'Номер прицепа', 'ФИО водителя', 'Паспорт', 'Телефон', 'Время въезда', 'Статус'];
-
-            // CSV 데이터 행 생성
-            const rows = vehicles.map(v => {
-                const registeredAt = new Date(v.registeredAt).toLocaleString('ko-KR');
-                const completedText = currentLang === 'ko'
-                    ? (v.entryCompleted ? '완료' : '대기')
-                    : (v.entryCompleted ? 'Завершено' : 'Ожидание');
-
-                return [
-                    registeredAt,
-                    v.registeredBy || '',
-                    v.entryDate || '',
-                    v.clientName || '',
-                    v.orderNumber || '',
-                    v.headNumber || '',
-                    v.trailerNumber || '',
-                    v.driverName || '',
-                    v.driverPassport || '',
-                    v.driverPhone || '',
-                    v.entryTime || '',
-                    completedText
-                ].map(field => `"${field}"`).join(',');
-            });
-
-            // CSV 문자열 생성
-            const csvContent = [
-                headers.map(h => `"${h}"`).join(','),
-                ...rows
-            ].join('\n');
-
-            // BOM 추가 (엑셀에서 한글/러시아어 깨짐 방지)
-            const BOM = '\uFEFF';
-            const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
-
-            // 파일 다운로드
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            const today = new Date().toISOString().split('T')[0];
-
-            link.setAttribute('href', url);
-            link.setAttribute('download', `Lotte_Vehicle_Registration_${today}.csv`);
-            link.style.visibility = 'hidden';
-
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            // 성공 메시지
-            const message = currentLang === 'ko'
-                ? `${vehicles.length}개의 차량 데이터를 CSV로 내보냈습니다.`
-                : `Экспортировано ${vehicles.length} записей в CSV.`;
-            alert(message);
-        }
-
-        // Google Sheets 동기화
-        async function syncToGoogleSheet(vehicle) {
-            const settings = loadSettings();
-            if (!settings.googleSheetUrl) return;
-
-            try {
-                await fetch(settings.googleSheetUrl, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'addVehicle',
-                        data: vehicle
-                    })
-                });
-            } catch (error) {
-                console.error('Google Sheets 동기화 실패:', error);
-            }
-        }
-
-        // 탭 전환
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-
-            if (tabName === 'list') {
-                renderVehicleList(currentFilter);
-            } else if (tabName === 'settings') {
-                const settings = loadSettings();
-                document.getElementById('googleSheetUrl').value = settings.googleSheetUrl;
-            }
-        }
-
-        // 언어 전환 함수
-        function switchLanguage(lang) {
-            currentLang = lang;
-            localStorage.setItem(STORAGE_KEYS.language, lang);
-
-            // 버튼 active 상태 업데이트
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            // UI 업데이트
-            updateLanguage();
-        }
-
-        // 안전하게 요소 업데이트하는 헬퍼 함수
-        function safeSetText(selector, text, isId = false) {
-            try {
-                const element = isId ? document.getElementById(selector) : document.querySelector(selector);
-                if (element) {
-                    element.textContent = text;
-                    return true;
-                }
-                return false;
-            } catch (e) {
-                return false;
-            }
-        }
-
-        function safeSetPlaceholder(id, text) {
-            try {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.placeholder = text;
-                    return true;
-                }
-                return false;
-            } catch (e) {
-                return false;
-            }
-        }
-
-        // 언어에 맞게 UI 업데이트
-        function updateLanguage() {
-            try {
-                const t = TRANSLATIONS[currentLang];
-
-                // 로그인 페이지
-                document.getElementById('loginTitle').textContent = t.loginTitle;
-                document.getElementById('loginSubtitle').textContent = t.loginSubtitle;
-                document.getElementById('loginUsernameLabel').textContent = t.username;
-                document.getElementById('loginPasswordLabel').textContent = t.password;
-                document.getElementById('rememberMeLabel').textContent = t.rememberMe;
-                document.getElementById('loginBtn').textContent = t.loginBtn;
-                document.getElementById('loginError').textContent = t.loginError;
-
-                // 헤더
-                safeSetText('.header h1', t.title);
-
-                const subtitleEl = document.querySelector('.subtitle');
-                if (subtitleEl) {
-                    subtitleEl.innerHTML = t.subtitle + ' <span style="font-size: 0.75em; color: #fff; margin-left: 8px;">v0.1</span>';
-                }
-
-                // 탭 버튼
-                const tabBtns = document.querySelectorAll('.tab-btn');
-                if (tabBtns.length >= 3) {
-                    tabBtns[0].textContent = t.tabRegister;
-                    tabBtns[1].textContent = t.tabList;
-                    tabBtns[2].textContent = t.tabSettings;
-                }
-
-                // 차량 등록 폼
-                safeSetText('#register h2', t.registerTitle);
-                document.querySelector('label[for="userName"]').textContent = t.userName;
-                document.querySelector('#userName option[value=""]').textContent = t.selectPlaceholder;
-                document.querySelector('label[for="entryDate"]').textContent = t.entryDate;
-                document.querySelector('label[for="clientName"]').textContent = t.clientName;
-                document.getElementById('clientName').placeholder = t.clientPlaceholder;
-                document.querySelector('label[for="orderNumber"]').textContent = t.orderNumber;
-                document.getElementById('orderNumber').placeholder = t.orderPlaceholder;
-                document.querySelector('label[for="headNumber"]').textContent = t.headNumber;
-                document.getElementById('headNumber').placeholder = t.headPlaceholder;
-                document.querySelector('label[for="trailerNumber"]').textContent = t.trailerNumber;
-                document.getElementById('trailerNumber').placeholder = t.trailerPlaceholder;
-                document.querySelector('label[for="driverName"]').textContent = t.driverName;
-                document.getElementById('driverName').placeholder = t.driverNamePlaceholder;
-                document.querySelector('label[for="driverPassport"]').textContent = t.driverPassport;
-                document.getElementById('driverPassport').placeholder = t.passportPlaceholder;
-                document.querySelector('label[for="driverPhone"]').textContent = t.driverPhone;
-                document.getElementById('driverPhone').placeholder = t.phonePlaceholder;
-                document.querySelector('label[for="entryTime"]').textContent = t.entryTime;
-                document.querySelector('label[for="entryCompleted"]').textContent = t.entryCompleted;
-                document.getElementById('submitBtn').textContent = t.submitBtn;
-                document.getElementById('successMessage').textContent = t.successMessage;
-
-                // 등록 현황
-                safeSetText('#list h2', t.listTitle);
-                document.getElementById('searchInput').placeholder = t.searchPlaceholder;
-
-                const filterBtns = document.querySelectorAll('.filter-btn');
-                filterBtns[0].textContent = t.filterAll;
-                filterBtns[1].textContent = t.filterToday;
-                filterBtns[2].textContent = t.filterPending;
-                filterBtns[3].textContent = t.filterCompleted;
-
-                document.getElementById('exportBtnText').textContent = t.exportBtn;
-
-                // 설정
-                safeSetText('#settings h2', t.settingsTitle);
-                safeSetText('label[for="googleSheetUrl"]', t.googleSheetUrl);
-                safeSetPlaceholder('googleSheetUrl', t.googleSheetPlaceholder);
-                safeSetText('#settings h3', t.userManagement);
-                safeSetText('#settings .btn', t.btnSave);
-
-                // AI 업로드 섹션
-                safeSetText('.ai-upload-section h3', t.aiAutoFill);
-
-                const aiTabBtns = document.querySelectorAll('.ai-tab-btn');
-                if (aiTabBtns.length >= 2) {
-                    aiTabBtns[0].textContent = t.aiTabImage;
-                    aiTabBtns[1].textContent = t.aiTabText;
-                }
-
-                safeSetText('.upload-text', t.uploadImage);
-                safeSetText('.upload-hint', t.uploadHint);
-                safeSetPlaceholder('textInput', t.textPlaceholder);
-                safeSetText('.btn-extract', t.btnExtract);
-                safeSetText('#clearImageBtn', t.clearImage, true);
-                safeSetText('.processing-text', t.processing);
-
-                // 로그아웃 버튼과 사용자 정보
-                const logoutBtn = document.querySelector('.logout-btn');
-                if (logoutBtn) {
-                    logoutBtn.textContent = t.logout;
-                }
-
-                // 사용자 정보 업데이트
-                const currentUser = localStorage.getItem(STORAGE_KEYS.currentUser);
-                if (currentUser) {
-                    const user = JSON.parse(currentUser);
-                    document.getElementById('userInfo').textContent =
-                        `${t.loggedInAs}: ${user.name} (${user.role})`;
-                }
-
-                // 날짜/시간 업데이트 (언어 변경 반영)
-                updateDateTime();
-
-                // 목록 새로고침
-                renderVehicleList(currentFilter);
-            } catch (error) {
-                console.error('updateLanguage error:', error);
-                // 오류가 발생해도 계속 진행 (일부 요소가 없을 수 있음)
-            }
-        }
-
-        // ========== AI 이미지 업로드 및 OCR 기능 ==========
-
-        // AI 섹션 토글
-        function toggleAISection() {
-            const content = document.getElementById('aiSectionContent');
-            const icon = document.querySelector('.ai-toggle-icon');
-
-            content.classList.toggle('expanded');
-            icon.classList.toggle('expanded');
-        }
-
-        // AI 탭 전환
-        function switchAITab(tab) {
-            const tabs = document.querySelectorAll('.ai-tab-content');
-            const btns = document.querySelectorAll('.ai-tab-btn');
-
-            tabs.forEach(t => t.classList.remove('active'));
-            btns.forEach(b => b.classList.remove('active'));
-
-            if (tab === 'image') {
-                document.getElementById('imageTab').classList.add('active');
-                btns[0].classList.add('active');
-            } else {
-                document.getElementById('textTab').classList.add('active');
-                btns[1].classList.add('active');
-            }
-        }
-
-        // 텍스트에서 정보 추출
-        function extractFromText() {
-            const text = document.getElementById('textInput').value;
-            if (!text.trim()) {
-                alert('텍스트를 입력해주세요.');
-                return;
-            }
-
-            const t = TRANSLATIONS[currentLang];
-
-            // MRZ 파싱 시도
-            const mrzData = parseMRZ(text);
-
-            // 텍스트 추출 함수 호출 (MRZ 데이터 포함)
-            extractAndFillForm(text, mrzData);
-
-            // 성공 메시지
-            const successMsg = document.getElementById('successMessage');
-            if (mrzData.found) {
-                successMsg.textContent = '✅ MRZ 감지! 정보가 추출되었습니다.';
-            } else {
-                successMsg.textContent = t.extractSuccess;
-            }
-            successMsg.classList.add('show');
-            setTimeout(() => {
-                successMsg.classList.remove('show');
-                successMsg.textContent = t.successMessage;
-            }, 3000);
-
-            // 텍스트 입력창 초기화
-            document.getElementById('textInput').value = '';
-        }
-
-        // 이미지 업로드 영역 이벤트 리스너
-        const uploadArea = document.getElementById('uploadArea');
-        const imageInput = document.getElementById('imageInput');
-        const imagePreview = document.getElementById('imagePreview');
-        const clearImageBtn = document.getElementById('clearImageBtn');
-        const processingOverlay = document.getElementById('processingOverlay');
-
-        // 클릭하여 파일 선택
-        uploadArea.addEventListener('click', () => {
-            imageInput.click();
-        });
-
-        // 드래그 앤 드롭 이벤트
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.classList.add('dragover');
-        });
-
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.classList.remove('dragover');
-        });
-
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.classList.remove('dragover');
-
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                handleImageUpload(files[0]);
-            }
-        });
-
-        // 파일 선택 이벤트
-        imageInput.addEventListener('change', (e) => {
-            if (e.target.files.length > 0) {
-                handleImageUpload(e.target.files[0]);
-            }
-        });
-
-        // 이미지 제거 버튼
-        clearImageBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            imagePreview.style.display = 'none';
-            clearImageBtn.style.display = 'none';
-            imageInput.value = '';
-        });
-
-        // 이미지 업로드 처리
-        async function handleImageUpload(file) {
-            if (!file.type.startsWith('image/')) {
-                alert('이미지 파일만 업로드 가능합니다.');
-                return;
-            }
-
-            // 이미지 미리보기
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                imagePreview.src = e.target.result;
-                imagePreview.style.display = 'block';
-                clearImageBtn.style.display = 'inline-block';
-            };
-            reader.readAsDataURL(file);
-
-            // OCR 처리
-            await performOCR(file);
-        }
-
-        // ========== 이미지 전처리 함수들 ==========
-
-        // 이미지 전처리 - 그레이스케일, 대비 조정, 샤프닝, 이진화
-        async function preprocessImage(imageFile) {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const img = new Image();
-                    img.onload = () => {
-                        // Canvas 생성
-                        const canvas = document.createElement('canvas');
-                        const ctx = canvas.getContext('2d');
-
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-
-                        // 원본 이미지 그리기
-                        ctx.drawImage(img, 0, 0);
-
-                        // 이미지 데이터 가져오기
-                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                        const data = imageData.data;
-
-                        // 1단계: 그레이스케일 변환
-                        for (let i = 0; i < data.length; i += 4) {
-                            const gray = data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
-                            data[i] = data[i + 1] = data[i + 2] = gray;
-                        }
-
-                        // 2단계: 대비 증가 (contrast enhancement)
-                        const contrast = 1.5; // 대비 증가 계수
-                        const factor = (259 * (contrast * 100 + 255)) / (255 * (259 - contrast * 100));
-
-                        for (let i = 0; i < data.length; i += 4) {
-                            data[i] = factor * (data[i] - 128) + 128;
-                            data[i + 1] = factor * (data[i + 1] - 128) + 128;
-                            data[i + 2] = factor * (data[i + 2] - 128) + 128;
-
-                            // 값을 0-255 범위로 제한
-                            data[i] = Math.max(0, Math.min(255, data[i]));
-                            data[i + 1] = Math.max(0, Math.min(255, data[i + 1]));
-                            data[i + 2] = Math.max(0, Math.min(255, data[i + 2]));
-                        }
-
-                        // 3단계: 이진화 (Otsu's method 단순화 버전)
-                        // 평균 밝기 계산
-                        let sum = 0;
-                        for (let i = 0; i < data.length; i += 4) {
-                            sum += data[i];
-                        }
-                        const threshold = sum / (data.length / 4);
-
-                        // 이진화 적용
-                        for (let i = 0; i < data.length; i += 4) {
-                            const value = data[i] > threshold ? 255 : 0;
-                            data[i] = data[i + 1] = data[i + 2] = value;
-                        }
-
-                        // 처리된 이미지 데이터 다시 그리기
-                        ctx.putImageData(imageData, 0, 0);
-
-                        // Canvas를 Blob으로 변환
-                        canvas.toBlob((blob) => {
-                            resolve(blob);
-                        }, 'image/png');
-                    };
-                    img.src = e.target.result;
-                };
-                reader.readAsDataURL(imageFile);
-            });
-        }
-
-        // MRZ (Machine Readable Zone) 파싱 함수
-        function parseMRZ(text) {
-            // MRZ 라인 찾기 (여권/신분증 하단의 기계판독영역)
-            // 형식: IDKGZID3181390822301197900282<
-            //      7901232M3301258KGZ<<<<<<<<<<<
-            //      MATSAN<<KHAMID<<<<<<<<<<<<<<
-
-            const lines = text.split('\n').map(line => line.trim());
-            const mrzData = {
-                found: false,
-                passportNumber: '',
-                surname: '',
-                givenName: '',
-                birthDate: '',
-                expiryDate: '',
-                nationality: ''
-            };
-
-            // MRZ 패턴 찾기 (ID, P<, I<, AC 등으로 시작하는 라인)
-            const mrzLines = lines.filter(line =>
-                /^(ID|P<|I<|AC)[A-Z<]{3}/.test(line) ||
-                /^[A-Z0-9<]{30,}$/.test(line)
-            );
-
-            if (mrzLines.length >= 2) {
-                mrzData.found = true;
-
-                // 첫 번째 라인에서 여권번호 추출
-                const line1 = mrzLines[0].replace(/\s/g, '');
-                const passportMatch = line1.match(/ID([A-Z]{3})([A-Z0-9]{6,9})/);
-                if (passportMatch) {
-                    mrzData.nationality = passportMatch[1];
-                    mrzData.passportNumber = passportMatch[2];
-                }
-
-                // 두 번째 라인에서 생년월일, 만료일 추출
-                if (mrzLines[1]) {
-                    const line2 = mrzLines[1].replace(/\s/g, '');
-                    // 생년월일 (YYMMDD)
-                    const birthMatch = line2.match(/^(\d{6})/);
-                    if (birthMatch) {
-                        const yy = birthMatch[1].substring(0, 2);
-                        const mm = birthMatch[1].substring(2, 4);
-                        const dd = birthMatch[1].substring(4, 6);
-                        // 1900년대/2000년대 판단 (70 이상이면 1900년대)
-                        const year = parseInt(yy) >= 70 ? '19' + yy : '20' + yy;
-                        mrzData.birthDate = `${dd}.${mm}.${year}`;
-                    }
-
-                    // 만료일 (YYMMDD)
-                    const expiryMatch = line2.match(/\d[MF](\d{6})/);
-                    if (expiryMatch) {
-                        const yy = expiryMatch[1].substring(0, 2);
-                        const mm = expiryMatch[1].substring(2, 4);
-                        const dd = expiryMatch[1].substring(4, 6);
-                        const year = parseInt(yy) >= 70 ? '19' + yy : '20' + yy;
-                        mrzData.expiryDate = `${dd}.${mm}.${year}`;
-                    }
-                }
-
-                // 세 번째 라인에서 이름 추출
-                if (mrzLines[2]) {
-                    const line3 = mrzLines[2].replace(/\s/g, '');
-                    // 형식: SURNAME<<GIVENNAME<<MIDDLENAME
-                    const nameParts = line3.split('<<');
-                    if (nameParts.length >= 2) {
-                        mrzData.surname = nameParts[0].replace(/</g, ' ').trim();
-                        mrzData.givenName = nameParts[1].replace(/</g, ' ').trim();
-                    }
-                }
-            }
-
-            return mrzData;
-        }
-
-        // OCR 처리 함수 (전처리 + MRZ 처리 포함)
-        async function performOCR(imageFile) {
-            const t = TRANSLATIONS[currentLang];
-            processingOverlay.classList.add('show');
-            document.querySelector('.processing-text').textContent = `${t.processing} 0%`;
-
-            try {
-                // 1단계: 이미지 전처리
-                console.log('이미지 전처리 시작...');
-                document.querySelector('.processing-text').textContent = '이미지 전처리 중...';
-                const preprocessedImage = await preprocessImage(imageFile);
-
-                // 2단계: 원본 이미지로 OCR (일반 텍스트용)
-                console.log('원본 이미지 OCR 시작...');
-                document.querySelector('.processing-text').textContent = '원본 이미지 분석 중... 0%';
-
-                const originalResult = await Tesseract.recognize(
-                    imageFile,
-                    'rus+eng', // 러시아어 + 영어
-                    {
-                        logger: info => {
-                            if (info.status === 'recognizing text') {
-                                const progress = Math.round(info.progress * 50);
-                                document.querySelector('.processing-text').textContent =
-                                    `원본 이미지 분석 중... ${progress}%`;
-                            }
-                        }
-                    }
-                );
-
-                // 3단계: 전처리된 이미지로 OCR (MRZ 및 어려운 텍스트용)
-                console.log('전처리된 이미지 OCR 시작...');
-                document.querySelector('.processing-text').textContent = '전처리 이미지 분석 중... 50%';
-
-                const preprocessedResult = await Tesseract.recognize(
-                    preprocessedImage,
-                    'rus+eng',
-                    {
-                        tessedit_pageseg_mode: Tesseract.PSM.AUTO,
-                        tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя0123456789<-/ ',
-                        logger: info => {
-                            if (info.status === 'recognizing text') {
-                                const progress = Math.round(info.progress * 50) + 50;
-                                document.querySelector('.processing-text').textContent =
-                                    `전처리 이미지 분석 중... ${progress}%`;
-                            }
-                        }
-                    }
-                );
-
-                // 두 결과 결합
-                const combinedText = originalResult.data.text + '\n' + preprocessedResult.data.text;
-                console.log('결합된 텍스트:', combinedText);
-
-                // 4단계: MRZ 파싱 시도
-                document.querySelector('.processing-text').textContent = 'MRZ 분석 중...';
-                const mrzData = parseMRZ(combinedText);
-
-                // 5단계: 폼 채우기
-                if (mrzData.found) {
-                    console.log('MRZ 감지됨:', mrzData);
-                    // MRZ 데이터로 폼 채우기
-                    if (mrzData.passportNumber) {
-                        document.getElementById('driverPassport').value = mrzData.passportNumber;
-                    }
-                    if (mrzData.surname && mrzData.givenName) {
-                        document.getElementById('driverName').value =
-                            `${mrzData.givenName} ${mrzData.surname}`;
-                    }
-                }
-
-                // 일반 텍스트 파싱도 함께 수행 (차량번호 등)
-                extractAndFillForm(combinedText, mrzData);
-
-                processingOverlay.classList.remove('show');
-
-                // 성공 메시지
-                const successMsg = document.getElementById('successMessage');
-                if (mrzData.found) {
-                    successMsg.textContent = '✅ MRZ 감지! 정보가 추출되었습니다.';
-                } else {
-                    successMsg.textContent = t.extractSuccess;
-                }
-                successMsg.classList.add('show');
-                setTimeout(() => {
-                    successMsg.classList.remove('show');
-                    successMsg.textContent = t.successMessage;
-                }, 3000);
-
-            } catch (error) {
-                console.error('OCR 오류:', error);
-                processingOverlay.classList.remove('show');
-                alert(t.extractError + '\n' + error.message);
-            }
-        }
-
-        // 텍스트에서 정보 추출 및 폼 채우기 (MRZ 데이터 포함)
-        function extractAndFillForm(text, mrzData = null) {
-            console.log('추출된 텍스트:', text);
-            if (mrzData && mrzData.found) {
-                console.log('MRZ 데이터 사용:', mrzData);
-            }
-
-            const learningData = loadLearningData();
-            const extractedData = {
-                clientName: '',
-                orderNumber: '',
-                headNumber: '',
-                trailerNumber: '',
-                driverName: '',
-                driverPassport: '',
-                driverPhone: '',
-                entryTime: ''
-            };
-
-            // 여권 번호 - 라벨 포함 처리 (Паспорт:, Passport: 등)
-            // 키릴 문자와 라틴 문자 모두 지원
-            let passportMatch = text.match(/(?:Паспорт|Passport|паспорт|passport):\s*([A-ZА-ЯЁ]{2}\s?\d{7,8})/i);
-            if (!passportMatch) {
-                // 라벨 없이 패턴만 찾기
-                passportMatch = text.match(/[A-ZА-ЯЁ]{2}\s?\d{7,8}/i);
-            }
-            if (passportMatch) {
-                let passport = (passportMatch[1] || passportMatch[0]).replace(/\s/g, '').toUpperCase();
-                // 키릴 문자를 라틴 문자로 변환 (М->M, С->C, Н->H 등)
-                passport = passport.replace(/М/g, 'M').replace(/С/g, 'C').replace(/Н/g, 'H')
-                    .replace(/А/g, 'A').replace(/В/g, 'B').replace(/Е/g, 'E')
-                    .replace(/К/g, 'K').replace(/О/g, 'O').replace(/Р/g, 'P')
-                    .replace(/Т/g, 'T').replace(/Х/g, 'X');
-
-                // 학습된 패턴 적용
-                if (learningData.passportMappings[passport]) {
-                    passport = learningData.passportMappings[passport];
-                }
-                extractedData.driverPassport = passport;
-                document.getElementById('driverPassport').value = passport;
-            }
-
-            // 차량 번호 패턴 (예: AX3623-5, A39101-5, A3910I-5)
-            // I를 1로 자동 변환
-            const vehicleMatches = text.match(/[A-Z]{1,2}\d{4,5}[-\s\/]?\d{1}|[A-Z]{1,2}\d{3,4}[I1][-\s\/]?\d{1}/gi);
-            if (vehicleMatches && vehicleMatches.length >= 1) {
-                // 첫 번째를 헤드로 (I를 1로 변환)
-                extractedData.headNumber = vehicleMatches[0].replace(/\s/g, '').replace(/\//g, '').replace(/I/gi, '1');
-                document.getElementById('headNumber').value = extractedData.headNumber;
-                // 두 번째가 있으면 트레일러로
-                if (vehicleMatches.length >= 2) {
-                    extractedData.trailerNumber = vehicleMatches[1].replace(/\s/g, '').replace(/\//g, '').replace(/I/gi, '1');
-                    document.getElementById('trailerNumber').value = extractedData.trailerNumber;
-                }
-            }
-
-            // 운전자 이름 - 라벨 포함 처리
-            // Фамилия:, Имя:, Отчество: 형식 처리
-            let surname = '', firstName = '', patronymic = '';
-
-            const surnameMatch = text.match(/(?:Фамилия|Surname|фамилия):\s*([А-ЯЁ][а-яё]+)/i);
-            if (surnameMatch) surname = surnameMatch[1];
-
-            const firstNameMatch = text.match(/(?:Имя|Name|имя):\s*([А-ЯЁ][а-яё]+)/i);
-            if (firstNameMatch) firstName = firstNameMatch[1];
-
-            const patronymicMatch = text.match(/(?:Отчество|Patronymic|отчество):\s*([А-ЯЁ][а-яё]+)/i);
-            if (patronymicMatch) patronymic = patronymicMatch[1];
-
-            // 라벨이 있는 경우
-            if (surname && firstName && patronymic) {
-                let fullName = `${surname} ${firstName} ${patronymic}`;
-                // 학습된 패턴 적용
-                if (learningData.nameMappings[fullName]) {
-                    fullName = learningData.nameMappings[fullName];
-                }
-                extractedData.driverName = fullName;
-                document.getElementById('driverName').value = fullName;
-            } else {
-                // 라벨 없이 연속된 3단어 패턴 찾기
-                const nameMatch = text.match(/([А-ЯЁ][а-яё]+)\s+([А-ЯЁ][а-яё]+)\s+([А-ЯЁ][а-яё]+)/);
-                if (nameMatch) {
-                    let fullName = `${nameMatch[1]} ${nameMatch[2]} ${nameMatch[3]}`;
-                    // 학습된 패턴 적용
-                    if (learningData.nameMappings[fullName]) {
-                        fullName = learningData.nameMappings[fullName];
-                    }
-                    extractedData.driverName = fullName;
-                    document.getElementById('driverName').value = fullName;
-                }
-            }
-
-            // 거래처명 - 학습된 패턴 우선 적용
-            let clientName = '';
-            const keywords = extractClientKeywords(text);
-            for (const keyword of keywords) {
-                if (learningData.clientMappings[keyword]) {
-                    clientName = learningData.clientMappings[keyword];
-                    break;
-                }
-            }
-            // 학습된 패턴이 없으면 기본 패턴 사용
-            if (!clientName) {
-                const clientMatch = text.match(/(?:ЛОТТЕ|LOTTE|ЛО[TТ]{2}Е)/i);
-                if (clientMatch) {
-                    clientName = 'ЛОТТЕ';
-                }
-            }
-            if (clientName) {
-                extractedData.clientName = clientName;
-                document.getElementById('clientName').value = clientName;
-            }
-
-            // 날짜 - "Дата рождения:" 라벨 무시하고 날짜만 추출
-            // 오늘 날짜를 기본으로 사용 (생년월일이 아닌 입차 날짜가 필요함)
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('entryDate').value = today;
-
-            // 만약 텍스트에 입차 날짜가 명시되어 있다면 추출
-            const entryDateMatch = text.match(/(?:Дата|Date|дата|date)(?:\s+въезда|\s+entry)?:\s*(\d{1,2})[.\-\/](\d{1,2})[.\-\/](\d{2,4})/i);
-            if (entryDateMatch) {
-                let day = entryDateMatch[1].padStart(2, '0');
-                let month = entryDateMatch[2].padStart(2, '0');
-                let year = entryDateMatch[3];
-                if (year.length === 2) {
-                    year = '20' + year;
-                }
-                document.getElementById('entryDate').value = `${year}-${month}-${day}`;
-            }
-
-            // 전화번호 (러시아 형식: +7 или 8)
-            const phoneMatch = text.match(/(?:\+7|8)\s?[\d\s\-()]{10,}/);
-            if (phoneMatch) {
-                let phone = phoneMatch[0].replace(/[\s\-()]/g, '');
-                // +7 형식으로 통일
-                if (phone.startsWith('8')) {
-                    phone = '+7' + phone.substring(1);
-                }
-                extractedData.driverPhone = phone;
-                document.getElementById('driverPhone').value = phone;
-            }
-
-            // 주문번호 패턴 - 학습된 패턴 우선 적용
-            let orderNumber = '';
-            for (const pattern in learningData.orderMappings) {
-                if (text.includes(pattern)) {
-                    orderNumber = learningData.orderMappings[pattern];
-                    break;
-                }
-            }
-            // 학습된 패턴이 없으면 기본 패턴 사용
-            if (!orderNumber) {
-                const orderMatch = text.match(/(?:№|#|N)\s?([A-Z0-9]+\/\d+|[A-Z]?\d+\/\d+)/i);
-                if (orderMatch) {
-                    orderNumber = orderMatch[1];
-                }
-            }
-            if (orderNumber) {
-                extractedData.orderNumber = orderNumber;
-                document.getElementById('orderNumber').value = orderNumber;
-            }
-
-            // 추출된 데이터와 원본 텍스트 저장 (학습용)
-            localStorage.setItem(STORAGE_KEYS.lastOcrExtraction, JSON.stringify({
-                originalText: text,
-                extractedData: extractedData,
-                timestamp: new Date().toISOString()
-            }));
-        }
-
-        // 실시간 날짜/시간 업데이트
-        function updateDateTime() {
-            try {
-                // 모스크바 시간대 (UTC+3)
-                const now = new Date();
-                const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-                const moscowTime = new Date(utc + (3 * 3600000)); // UTC+3
-
-                // 날짜 형식 (러시아어/한국어)
-                let dateStr;
-                if (currentLang === 'ru') {
-                    const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-                        'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
-                    dateStr = `${moscowTime.getDate()} ${months[moscowTime.getMonth()]} ${moscowTime.getFullYear()} г.`;
-                } else {
-                    dateStr = `${moscowTime.getFullYear()}년 ${(moscowTime.getMonth() + 1)}월 ${moscowTime.getDate()}일`;
-                }
-
-                // 시간 형식 (24시간)
-                const hours = String(moscowTime.getHours()).padStart(2, '0');
-                const minutes = String(moscowTime.getMinutes()).padStart(2, '0');
-                const seconds = String(moscowTime.getSeconds()).padStart(2, '0');
-                const timeStr = `${hours}:${minutes}:${seconds}`;
-
-                // DOM 업데이트
-                const dateElement = document.getElementById('currentDate');
-                const timeElement = document.getElementById('currentTime');
-
-                if (dateElement) dateElement.textContent = dateStr;
-                if (timeElement) timeElement.textContent = timeStr;
-
-                console.log('DateTime updated (Moscow UTC+3):', dateStr, timeStr);
-            } catch (error) {
-                console.error('updateDateTime error:', error);
-                // 오류 발생 시에도 모스크바 시간 표시
-                const now = new Date();
-                const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-                const moscowTime = new Date(utc + (3 * 3600000));
-                const dateElement = document.getElementById('currentDate');
-                const timeElement = document.getElementById('currentTime');
-                if (dateElement) dateElement.textContent = moscowTime.toLocaleDateString('ru-RU');
-                if (timeElement) timeElement.textContent = moscowTime.toLocaleTimeString('ru-RU');
-            }
-        }
-
-        // 초기화
-        window.addEventListener('load', function () {
-            // 로그인 폼 이벤트 리스너
-            document.getElementById('loginForm').addEventListener('submit', handleLogin);
-
-            // 저장된 언어 불러오기
-            const savedLang = localStorage.getItem(STORAGE_KEYS.language) || 'ru';
-            currentLang = savedLang;
-
-            // 언어 버튼 업데이트
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if ((savedLang === 'ru' && btn.textContent === 'RUS') ||
-                    (savedLang === 'ko' && btn.textContent === 'KOR')) {
-                    btn.classList.add('active');
-                }
-            });
-
-            // 언어 적용
-            console.log('Applying language...');
-            updateLanguage();
-
-            // 날짜/시간 즉시 업데이트 및 시작
-            console.log('Starting datetime update...');
-            updateDateTime();
-            if (dateTimeInterval) clearInterval(dateTimeInterval);
-            dateTimeInterval = setInterval(updateDateTime, 1000);
-            console.log('DateTime interval started');
-
-            // 로그인 상태 확인
-            console.log('Checking login status...');
-            checkLoginStatus();
-
-            renderUserSelect();
-
-            // 오늘 날짜 자동 설정
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('entryDate').value = today;
         });
     </script>
 </body>
