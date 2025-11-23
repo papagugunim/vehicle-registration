@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,7 +53,7 @@
             margin: 8px auto;
             padding: 6px 15px;
             border-radius: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             display: inline-block;
             font-weight: 500;
         }
@@ -73,7 +74,7 @@
         .header h1 {
             font-size: 1.2rem;
             margin-bottom: 4px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         .subtitle {
@@ -92,7 +93,7 @@
             flex: 1;
             padding: 12px;
             border: none;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             color: white;
             font-size: 0.95rem;
             font-weight: 700;
@@ -103,13 +104,13 @@
         }
 
         .tab-btn:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .tab-btn.active {
             background: white;
             color: #ED1C24;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
 
         .tab-content {
@@ -122,15 +123,22 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .card {
             background: white;
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
         }
 
         .form-group {
@@ -241,7 +249,7 @@
         }
 
         .vehicle-item:hover {
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             border-color: #ED1C24;
         }
 
@@ -420,7 +428,7 @@
             right: 20px;
             display: flex;
             gap: 5px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             padding: 5px;
             border-radius: 20px;
             backdrop-filter: blur(10px);
@@ -443,7 +451,7 @@
         }
 
         .lang-btn:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .lang-btn.active:hover {
@@ -488,8 +496,8 @@
         }
 
         .upload-area {
-            background: rgba(255,255,255,0.15);
-            border: 2px dashed rgba(255,255,255,0.5);
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px dashed rgba(255, 255, 255, 0.5);
             border-radius: 12px;
             padding: 20px;
             text-align: center;
@@ -499,12 +507,12 @@
         }
 
         .upload-area:hover {
-            background: rgba(255,255,255,0.25);
-            border-color: rgba(255,255,255,0.8);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.8);
         }
 
         .upload-area.dragover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
             border-color: white;
             transform: scale(1.02);
         }
@@ -539,7 +547,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.8);
             display: none;
             justify-content: center;
             align-items: center;
@@ -555,14 +563,16 @@
         .spinner {
             width: 50px;
             height: 50px;
-            border: 5px solid rgba(255,255,255,0.3);
+            border: 5px solid rgba(255, 255, 255, 0.3);
             border-top-color: white;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .processing-text {
@@ -572,10 +582,10 @@
         }
 
         .btn-clear-image {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             color: white;
             padding: 8px 16px;
-            border: 1px solid rgba(255,255,255,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: 8px;
             margin-top: 10px;
             cursor: pointer;
@@ -583,7 +593,7 @@
         }
 
         .btn-clear-image:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
         }
 
         /* AI 탭 */
@@ -596,8 +606,8 @@
         .ai-tab-btn {
             flex: 1;
             padding: 10px;
-            border: 2px solid rgba(255,255,255,0.3);
-            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
             color: white;
             border-radius: 8px;
             cursor: pointer;
@@ -606,11 +616,11 @@
         }
 
         .ai-tab-btn:hover {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .ai-tab-btn.active {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
             border-color: white;
         }
 
@@ -626,9 +636,9 @@
             width: 100%;
             min-height: 100px;
             padding: 12px;
-            border: 2px solid rgba(255,255,255,0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 10px;
-            background: rgba(255,255,255,0.15);
+            background: rgba(255, 255, 255, 0.15);
             color: white;
             font-size: 0.9rem;
             font-family: monospace;
@@ -636,7 +646,7 @@
         }
 
         #textInput::placeholder {
-            color: rgba(255,255,255,0.6);
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .btn-extract {
@@ -653,7 +663,7 @@
 
         .btn-extract:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         /* 로그인 페이지 */
@@ -668,7 +678,7 @@
             background: white;
             border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             max-width: 400px;
             width: 100%;
         }
@@ -753,7 +763,7 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             color: white;
             border: none;
             padding: 8px 16px;
@@ -765,14 +775,14 @@
         }
 
         .logout-btn:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .user-info {
             position: absolute;
             top: 70px;
             left: 20px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             color: white;
             padding: 8px 16px;
             border-radius: 15px;
@@ -789,6 +799,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- 로그인 페이지 -->
     <div id="loginPage">
@@ -850,193 +861,200 @@
             </div>
 
             <div class="header">
-            <div class="lotte-logo">
-                <img src="logo.png" alt="Lotte Logo" onerror="this.style.display='none'">
-                Happy Moments
-            </div>
-            <h1>🚛 차량 입차 등록 시스템</h1>
-            <div class="subtitle">Система регистрации въезда транспорта | Vehicle Entry Registration System <span style="font-size: 0.75em; color: #fff; margin-left: 8px;">v0.1</span></div>
-            <div class="datetime-display">
-                <span class="date" id="currentDate">Loading...</span>
-                <span class="time" id="currentTime"></span>
-            </div>
-        </div>
-
-        <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('register')">차량 등록</button>
-            <button class="tab-btn" onclick="switchTab('list')">등록 현황</button>
-            <button class="tab-btn" onclick="switchTab('settings')">설정</button>
-        </div>
-
-        <!-- 차량 등록 탭 -->
-        <div id="register" class="tab-content active">
-            <div class="card">
-                <h2 style="color: #ED1C24; margin-bottom: 20px;">🚛 차량 정보 등록</h2>
-
-                <div class="success-message" id="successMessage">
-                    ✅ 차량 정보가 성공적으로 등록되었습니다!
+                <div class="lotte-logo">
+                    <img src="logo.png" alt="Lotte Logo" onerror="this.style.display='none'">
+                    Happy Moments
                 </div>
+                <h1>🚛 차량 입차 등록 시스템</h1>
+                <div class="subtitle">Система регистрации въезда транспорта | Vehicle Entry Registration System <span
+                        style="font-size: 0.75em; color: #fff; margin-left: 8px;">v0.1</span></div>
+                <div class="datetime-display">
+                    <span class="date" id="currentDate">Loading...</span>
+                    <span class="time" id="currentTime"></span>
+                </div>
+            </div>
 
-                <!-- AI 이미지 업로드 섹션 -->
-                <div class="ai-upload-section">
-                    <!-- 헤더 -->
-                    <div class="ai-section-header">
-                        <h3>🤖 AI 자동 입력</h3>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('register')">차량 등록</button>
+                <button class="tab-btn" onclick="switchTab('list')">등록 현황</button>
+                <button class="tab-btn" onclick="switchTab('settings')">설정</button>
+                <button class="tab-btn" id="clientsTabBtn" onclick="window.location.href='clients.html'"
+                    style="display: none;">🏢 거래처 관리</button>
+            </div>
+
+            <!-- 차량 등록 탭 -->
+            <div id="register" class="tab-content active">
+                <div class="card">
+                    <h2 style="color: #ED1C24; margin-bottom: 20px;">🚛 차량 정보 등록</h2>
+
+                    <div class="success-message" id="successMessage">
+                        ✅ 차량 정보가 성공적으로 등록되었습니다!
                     </div>
 
-                    <!-- 콘텐츠 -->
-                    <div class="ai-section-content" id="aiSectionContent">
-                        <!-- AI 탭 -->
-                        <div class="ai-tabs">
-                            <button type="button" class="ai-tab-btn active" onclick="switchAITab('image')">📸 이미지 업로드</button>
-                            <button type="button" class="ai-tab-btn" onclick="switchAITab('text')">📝 텍스트 붙여넣기</button>
+                    <!-- AI 이미지 업로드 섹션 -->
+                    <div class="ai-upload-section">
+                        <!-- 헤더 -->
+                        <div class="ai-section-header">
+                            <h3>🤖 AI 자동 입력</h3>
                         </div>
 
-                        <!-- 이미지 업로드 탭 -->
-                        <div class="ai-tab-content active" id="imageTab">
-                            <div class="upload-area" id="uploadArea">
-                                <input type="file" id="imageInput" accept="image/*" style="display: none;">
-                                <div class="upload-icon">📸</div>
-                                <div class="upload-text">위임장 이미지를 업로드하세요</div>
-                                <div class="upload-hint">클릭하거나 이미지를 드래그하세요 (PNG, JPG, PDF)</div>
+                        <!-- 콘텐츠 -->
+                        <div class="ai-section-content" id="aiSectionContent">
+                            <!-- AI 탭 -->
+                            <div class="ai-tabs">
+                                <button type="button" class="ai-tab-btn active" onclick="switchAITab('image')">📸 이미지
+                                    업로드</button>
+                                <button type="button" class="ai-tab-btn" onclick="switchAITab('text')">📝 텍스트
+                                    붙여넣기</button>
                             </div>
-                            <img id="imagePreview" alt="Preview">
-                            <button type="button" class="btn-clear-image" id="clearImageBtn" style="display: none;">이미지 제거</button>
+
+                            <!-- 이미지 업로드 탭 -->
+                            <div class="ai-tab-content active" id="imageTab">
+                                <div class="upload-area" id="uploadArea">
+                                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                                    <div class="upload-icon">📸</div>
+                                    <div class="upload-text">위임장 이미지를 업로드하세요</div>
+                                    <div class="upload-hint">클릭하거나 이미지를 드래그하세요 (PNG, JPG, PDF)</div>
+                                </div>
+                                <img id="imagePreview" alt="Preview">
+                                <button type="button" class="btn-clear-image" id="clearImageBtn"
+                                    style="display: none;">이미지 제거</button>
+                            </div>
+
+                            <!-- 텍스트 붙여넣기 탭 -->
+                            <div class="ai-tab-content" id="textTab">
+                                <textarea id="textInput"
+                                    placeholder="이메일에서 받은 위임장 텍스트를 여기에 붙여넣으세요...&#10;&#10;예시:&#10;Гаврис Денис Викторович&#10;Паспорт MC3544098&#10;AX3623-5 / A39101-5&#10;ЛОТТЕ"></textarea>
+                                <button type="button" class="btn-extract" onclick="extractFromText()">정보 추출하기</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="vehicleForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="userName">입력자 이름 *</label>
+                                <select id="userName" required>
+                                    <option value="">선택하세요</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="entryDate">입차 날짜 *</label>
+                                <input type="date" id="entryDate" required>
+                            </div>
                         </div>
 
-                        <!-- 텍스트 붙여넣기 탭 -->
-                        <div class="ai-tab-content" id="textTab">
-                            <textarea id="textInput" placeholder="이메일에서 받은 위임장 텍스트를 여기에 붙여넣으세요...&#10;&#10;예시:&#10;Гаврис Денис Викторович&#10;Паспорт MC3544098&#10;AX3623-5 / A39101-5&#10;ЛОТТЕ"></textarea>
-                            <button type="button" class="btn-extract" onclick="extractFromText()">정보 추출하기</button>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="clientName">거래처명 *</label>
+                                <input type="text" id="clientName" placeholder="거래처명 입력" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="orderNumber">주문번호</label>
+                                <input type="text" id="orderNumber" placeholder="주문번호 입력">
+                            </div>
                         </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="headNumber">헤드 번호 *</label>
+                                <input type="text" id="headNumber" placeholder="컨테이너 헤드 번호" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="trailerNumber">트레일러 번호 *</label>
+                                <input type="text" id="trailerNumber" placeholder="트레일러 번호" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="driverName">운전자 이름 *</label>
+                                <input type="text" id="driverName" placeholder="운전자 이름" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="driverPassport">운전자 여권번호 *</label>
+                                <input type="text" id="driverPassport" placeholder="여권번호" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="driverPhone">운전자 전화번호</label>
+                                <input type="tel" id="driverPhone" placeholder="+7 XXX XXX XX XX">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="entryTime">입차 예정 시각</label>
+                                <input type="time" id="entryTime" min="08:00" max="20:00">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="entryCompleted">
+                                <label for="entryCompleted">입차 완료</label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+                            등록하기
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 등록 현황 탭 -->
+            <div id="list" class="tab-content">
+                <div class="card">
+                    <h2 style="color: #ED1C24; margin-bottom: 20px;">📋 등록 현황</h2>
+
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="🔍 검색 (차량번호, 거래처명, 주문번호, 운전자명)">
+                    </div>
+
+                    <div class="filter-tabs">
+                        <button class="filter-btn active" onclick="filterVehicles('all')">전체</button>
+                        <button class="filter-btn" onclick="filterVehicles('today')">오늘</button>
+                        <button class="filter-btn" onclick="filterVehicles('pending')">입차 대기</button>
+                        <button class="filter-btn" onclick="filterVehicles('completed')">입차 완료</button>
+                    </div>
+
+                    <div class="export-section">
+                        <button class="export-btn" onclick="exportToCSV()">
+                            <span>📊</span>
+                            <span id="exportBtnText">CSV 내보내기</span>
+                        </button>
+                    </div>
+
+                    <div class="vehicle-list" id="vehicleList">
+                        <!-- 차량 목록이 여기에 표시됩니다 -->
                     </div>
                 </div>
+            </div>
 
-                <form id="vehicleForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="userName">입력자 이름 *</label>
-                            <select id="userName" required>
-                                <option value="">선택하세요</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="entryDate">입차 날짜 *</label>
-                            <input type="date" id="entryDate" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="clientName">거래처명 *</label>
-                            <input type="text" id="clientName" placeholder="거래처명 입력" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="orderNumber">주문번호</label>
-                            <input type="text" id="orderNumber" placeholder="주문번호 입력">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="headNumber">헤드 번호 *</label>
-                            <input type="text" id="headNumber" placeholder="컨테이너 헤드 번호" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="trailerNumber">트레일러 번호 *</label>
-                            <input type="text" id="trailerNumber" placeholder="트레일러 번호" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="driverName">운전자 이름 *</label>
-                            <input type="text" id="driverName" placeholder="운전자 이름" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="driverPassport">운전자 여권번호 *</label>
-                            <input type="text" id="driverPassport" placeholder="여권번호" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="driverPhone">운전자 전화번호</label>
-                            <input type="tel" id="driverPhone" placeholder="+7 XXX XXX XX XX">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="entryTime">입차 예정 시각</label>
-                            <input type="time" id="entryTime" min="08:00" max="20:00">
-                        </div>
-                    </div>
+            <!-- 설정 탭 -->
+            <div id="settings" class="tab-content">
+                <div class="card">
+                    <h2 style="color: #ED1C24; margin-bottom: 20px;">⚙️ 설정</h2>
 
                     <div class="form-group">
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="entryCompleted">
-                            <label for="entryCompleted">입차 완료</label>
-                        </div>
+                        <label>Google Sheets URL</label>
+                        <input type="text" id="googleSheetUrl" placeholder="Google Apps Script URL 입력">
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
-                        등록하기
-                    </button>
-                </form>
-            </div>
-        </div>
+                    <h3 style="margin-top: 30px; color: #ED1C24; font-size: 1.1rem;">👥 사용자 관리</h3>
+                    <div id="userManagement"></div>
 
-        <!-- 등록 현황 탭 -->
-        <div id="list" class="tab-content">
-            <div class="card">
-                <h2 style="color: #ED1C24; margin-bottom: 20px;">📋 등록 현황</h2>
-
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="🔍 검색 (차량번호, 거래처명, 주문번호, 운전자명)">
-                </div>
-
-                <div class="filter-tabs">
-                    <button class="filter-btn active" onclick="filterVehicles('all')">전체</button>
-                    <button class="filter-btn" onclick="filterVehicles('today')">오늘</button>
-                    <button class="filter-btn" onclick="filterVehicles('pending')">입차 대기</button>
-                    <button class="filter-btn" onclick="filterVehicles('completed')">입차 완료</button>
-                </div>
-
-                <div class="export-section">
-                    <button class="export-btn" onclick="exportToCSV()">
-                        <span>📊</span>
-                        <span id="exportBtnText">CSV 내보내기</span>
+                    <button class="btn btn-primary btn-full" onclick="saveSettings()" style="margin-top: 20px;">
+                        💾 설정 저장
                     </button>
                 </div>
-
-                <div class="vehicle-list" id="vehicleList">
-                    <!-- 차량 목록이 여기에 표시됩니다 -->
-                </div>
             </div>
         </div>
-
-        <!-- 설정 탭 -->
-        <div id="settings" class="tab-content">
-            <div class="card">
-                <h2 style="color: #ED1C24; margin-bottom: 20px;">⚙️ 설정</h2>
-
-                <div class="form-group">
-                    <label>Google Sheets URL</label>
-                    <input type="text" id="googleSheetUrl" placeholder="Google Apps Script URL 입력">
-                </div>
-
-                <h3 style="margin-top: 30px; color: #ED1C24; font-size: 1.1rem;">👥 사용자 관리</h3>
-                <div id="userManagement"></div>
-
-                <button class="btn btn-primary btn-full" onclick="saveSettings()" style="margin-top: 20px;">
-                    💾 설정 저장
-                </button>
-            </div>
-        </div>
-    </div>
     </div>
 
     <!-- 처리 중 오버레이 -->
@@ -1362,38 +1380,6 @@
         // 로그인 페이지 표시
         function showLoginPage() {
             document.getElementById('loginPage').style.display = 'flex';
-            document.getElementById('mainApp').classList.remove('show');
-            document.getElementById('loginUsername').value = '';
-            document.getElementById('loginPassword').value = '';
-        }
-
-        // 메인 앱 표시
-        function showMainApp() {
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('mainApp').classList.add('show');
-
-            const currentUser = JSON.parse(localStorage.getItem(STORAGE_KEYS.currentUser));
-            const t = TRANSLATIONS[currentLang];
-
-            document.getElementById('userInfo').textContent =
-                `${t.loggedInAs}: ${currentUser.name} (${currentUser.role})`;
-
-            // 언어 업데이트 (모든 UI 요소 번역)
-            updateLanguage();
-
-            // 사용자 선택 목록 렌더링
-            renderUserSelect();
-
-            // 날짜/시간 업데이트 시작
-            if (dateTimeInterval) {
-                clearInterval(dateTimeInterval);
-            }
-            updateDateTime();
-            dateTimeInterval = setInterval(updateDateTime, 1000);
-        }
-
-        // 초기 로그인 상태 확인
-        function checkLoginStatus() {
             const currentUser = localStorage.getItem(STORAGE_KEYS.currentUser);
 
             if (currentUser) {
@@ -1536,7 +1522,7 @@
         }
 
         // 차량 등록 폼 제출
-        document.getElementById('vehicleForm').addEventListener('submit', function(e) {
+        document.getElementById('vehicleForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
             const userName = document.getElementById('userName').value;
@@ -1745,7 +1731,7 @@
         }
 
         // 검색
-        document.getElementById('searchInput').addEventListener('input', function() {
+        document.getElementById('searchInput').addEventListener('input', function () {
             renderVehicleList(currentFilter);
         });
 
@@ -1905,103 +1891,103 @@
             try {
                 const t = TRANSLATIONS[currentLang];
 
-            // 로그인 페이지
-            document.getElementById('loginTitle').textContent = t.loginTitle;
-            document.getElementById('loginSubtitle').textContent = t.loginSubtitle;
-            document.getElementById('loginUsernameLabel').textContent = t.username;
-            document.getElementById('loginPasswordLabel').textContent = t.password;
-            document.getElementById('rememberMeLabel').textContent = t.rememberMe;
-            document.getElementById('loginBtn').textContent = t.loginBtn;
-            document.getElementById('loginError').textContent = t.loginError;
+                // 로그인 페이지
+                document.getElementById('loginTitle').textContent = t.loginTitle;
+                document.getElementById('loginSubtitle').textContent = t.loginSubtitle;
+                document.getElementById('loginUsernameLabel').textContent = t.username;
+                document.getElementById('loginPasswordLabel').textContent = t.password;
+                document.getElementById('rememberMeLabel').textContent = t.rememberMe;
+                document.getElementById('loginBtn').textContent = t.loginBtn;
+                document.getElementById('loginError').textContent = t.loginError;
 
-            // 헤더
-            safeSetText('.header h1', t.title);
+                // 헤더
+                safeSetText('.header h1', t.title);
 
-            const subtitleEl = document.querySelector('.subtitle');
-            if (subtitleEl) {
-                subtitleEl.innerHTML = t.subtitle + ' <span style="font-size: 0.75em; color: #fff; margin-left: 8px;">v0.1</span>';
-            }
+                const subtitleEl = document.querySelector('.subtitle');
+                if (subtitleEl) {
+                    subtitleEl.innerHTML = t.subtitle + ' <span style="font-size: 0.75em; color: #fff; margin-left: 8px;">v0.1</span>';
+                }
 
-            // 탭 버튼
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            if (tabBtns.length >= 3) {
-                tabBtns[0].textContent = t.tabRegister;
-                tabBtns[1].textContent = t.tabList;
-                tabBtns[2].textContent = t.tabSettings;
-            }
+                // 탭 버튼
+                const tabBtns = document.querySelectorAll('.tab-btn');
+                if (tabBtns.length >= 3) {
+                    tabBtns[0].textContent = t.tabRegister;
+                    tabBtns[1].textContent = t.tabList;
+                    tabBtns[2].textContent = t.tabSettings;
+                }
 
-            // 차량 등록 폼
-            safeSetText('#register h2', t.registerTitle);
-            document.querySelector('label[for="userName"]').textContent = t.userName;
-            document.querySelector('#userName option[value=""]').textContent = t.selectPlaceholder;
-            document.querySelector('label[for="entryDate"]').textContent = t.entryDate;
-            document.querySelector('label[for="clientName"]').textContent = t.clientName;
-            document.getElementById('clientName').placeholder = t.clientPlaceholder;
-            document.querySelector('label[for="orderNumber"]').textContent = t.orderNumber;
-            document.getElementById('orderNumber').placeholder = t.orderPlaceholder;
-            document.querySelector('label[for="headNumber"]').textContent = t.headNumber;
-            document.getElementById('headNumber').placeholder = t.headPlaceholder;
-            document.querySelector('label[for="trailerNumber"]').textContent = t.trailerNumber;
-            document.getElementById('trailerNumber').placeholder = t.trailerPlaceholder;
-            document.querySelector('label[for="driverName"]').textContent = t.driverName;
-            document.getElementById('driverName').placeholder = t.driverNamePlaceholder;
-            document.querySelector('label[for="driverPassport"]').textContent = t.driverPassport;
-            document.getElementById('driverPassport').placeholder = t.passportPlaceholder;
-            document.querySelector('label[for="driverPhone"]').textContent = t.driverPhone;
-            document.getElementById('driverPhone').placeholder = t.phonePlaceholder;
-            document.querySelector('label[for="entryTime"]').textContent = t.entryTime;
-            document.querySelector('label[for="entryCompleted"]').textContent = t.entryCompleted;
-            document.getElementById('submitBtn').textContent = t.submitBtn;
-            document.getElementById('successMessage').textContent = t.successMessage;
+                // 차량 등록 폼
+                safeSetText('#register h2', t.registerTitle);
+                document.querySelector('label[for="userName"]').textContent = t.userName;
+                document.querySelector('#userName option[value=""]').textContent = t.selectPlaceholder;
+                document.querySelector('label[for="entryDate"]').textContent = t.entryDate;
+                document.querySelector('label[for="clientName"]').textContent = t.clientName;
+                document.getElementById('clientName').placeholder = t.clientPlaceholder;
+                document.querySelector('label[for="orderNumber"]').textContent = t.orderNumber;
+                document.getElementById('orderNumber').placeholder = t.orderPlaceholder;
+                document.querySelector('label[for="headNumber"]').textContent = t.headNumber;
+                document.getElementById('headNumber').placeholder = t.headPlaceholder;
+                document.querySelector('label[for="trailerNumber"]').textContent = t.trailerNumber;
+                document.getElementById('trailerNumber').placeholder = t.trailerPlaceholder;
+                document.querySelector('label[for="driverName"]').textContent = t.driverName;
+                document.getElementById('driverName').placeholder = t.driverNamePlaceholder;
+                document.querySelector('label[for="driverPassport"]').textContent = t.driverPassport;
+                document.getElementById('driverPassport').placeholder = t.passportPlaceholder;
+                document.querySelector('label[for="driverPhone"]').textContent = t.driverPhone;
+                document.getElementById('driverPhone').placeholder = t.phonePlaceholder;
+                document.querySelector('label[for="entryTime"]').textContent = t.entryTime;
+                document.querySelector('label[for="entryCompleted"]').textContent = t.entryCompleted;
+                document.getElementById('submitBtn').textContent = t.submitBtn;
+                document.getElementById('successMessage').textContent = t.successMessage;
 
-            // 등록 현황
-            safeSetText('#list h2', t.listTitle);
-            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+                // 등록 현황
+                safeSetText('#list h2', t.listTitle);
+                document.getElementById('searchInput').placeholder = t.searchPlaceholder;
 
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            filterBtns[0].textContent = t.filterAll;
-            filterBtns[1].textContent = t.filterToday;
-            filterBtns[2].textContent = t.filterPending;
-            filterBtns[3].textContent = t.filterCompleted;
+                const filterBtns = document.querySelectorAll('.filter-btn');
+                filterBtns[0].textContent = t.filterAll;
+                filterBtns[1].textContent = t.filterToday;
+                filterBtns[2].textContent = t.filterPending;
+                filterBtns[3].textContent = t.filterCompleted;
 
-            document.getElementById('exportBtnText').textContent = t.exportBtn;
+                document.getElementById('exportBtnText').textContent = t.exportBtn;
 
-            // 설정
-            safeSetText('#settings h2', t.settingsTitle);
-            safeSetText('label[for="googleSheetUrl"]', t.googleSheetUrl);
-            safeSetPlaceholder('googleSheetUrl', t.googleSheetPlaceholder);
-            safeSetText('#settings h3', t.userManagement);
-            safeSetText('#settings .btn', t.btnSave);
+                // 설정
+                safeSetText('#settings h2', t.settingsTitle);
+                safeSetText('label[for="googleSheetUrl"]', t.googleSheetUrl);
+                safeSetPlaceholder('googleSheetUrl', t.googleSheetPlaceholder);
+                safeSetText('#settings h3', t.userManagement);
+                safeSetText('#settings .btn', t.btnSave);
 
-            // AI 업로드 섹션
-            safeSetText('.ai-upload-section h3', t.aiAutoFill);
+                // AI 업로드 섹션
+                safeSetText('.ai-upload-section h3', t.aiAutoFill);
 
-            const aiTabBtns = document.querySelectorAll('.ai-tab-btn');
-            if (aiTabBtns.length >= 2) {
-                aiTabBtns[0].textContent = t.aiTabImage;
-                aiTabBtns[1].textContent = t.aiTabText;
-            }
+                const aiTabBtns = document.querySelectorAll('.ai-tab-btn');
+                if (aiTabBtns.length >= 2) {
+                    aiTabBtns[0].textContent = t.aiTabImage;
+                    aiTabBtns[1].textContent = t.aiTabText;
+                }
 
-            safeSetText('.upload-text', t.uploadImage);
-            safeSetText('.upload-hint', t.uploadHint);
-            safeSetPlaceholder('textInput', t.textPlaceholder);
-            safeSetText('.btn-extract', t.btnExtract);
-            safeSetText('#clearImageBtn', t.clearImage, true);
-            safeSetText('.processing-text', t.processing);
+                safeSetText('.upload-text', t.uploadImage);
+                safeSetText('.upload-hint', t.uploadHint);
+                safeSetPlaceholder('textInput', t.textPlaceholder);
+                safeSetText('.btn-extract', t.btnExtract);
+                safeSetText('#clearImageBtn', t.clearImage, true);
+                safeSetText('.processing-text', t.processing);
 
-            // 로그아웃 버튼과 사용자 정보
-            const logoutBtn = document.querySelector('.logout-btn');
-            if (logoutBtn) {
-                logoutBtn.textContent = t.logout;
-            }
+                // 로그아웃 버튼과 사용자 정보
+                const logoutBtn = document.querySelector('.logout-btn');
+                if (logoutBtn) {
+                    logoutBtn.textContent = t.logout;
+                }
 
-            // 사용자 정보 업데이트
-            const currentUser = localStorage.getItem(STORAGE_KEYS.currentUser);
-            if (currentUser) {
-                const user = JSON.parse(currentUser);
-                document.getElementById('userInfo').textContent =
-                    `${t.loggedInAs}: ${user.name} (${user.role})`;
-            }
+                // 사용자 정보 업데이트
+                const currentUser = localStorage.getItem(STORAGE_KEYS.currentUser);
+                if (currentUser) {
+                    const user = JSON.parse(currentUser);
+                    document.getElementById('userInfo').textContent =
+                        `${t.loggedInAs}: ${user.name} (${user.role})`;
+                }
 
                 // 날짜/시간 업데이트 (언어 변경 반영)
                 updateDateTime();
@@ -2567,7 +2553,7 @@
                 let dateStr;
                 if (currentLang === 'ru') {
                     const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-                                   'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+                        'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
                     dateStr = `${moscowTime.getDate()} ${months[moscowTime.getMonth()]} ${moscowTime.getFullYear()} г.`;
                 } else {
                     dateStr = `${moscowTime.getFullYear()}년 ${(moscowTime.getMonth() + 1)}월 ${moscowTime.getDate()}일`;
@@ -2601,7 +2587,7 @@
         }
 
         // 초기화
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             // 로그인 폼 이벤트 리스너
             document.getElementById('loginForm').addEventListener('submit', handleLogin);
 
@@ -2641,4 +2627,5 @@
         });
     </script>
 </body>
+
 </html>
