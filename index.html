@@ -2326,31 +2326,42 @@
 
         // 실시간 날짜/시간 업데이트
         function updateDateTime() {
-            const now = new Date();
-            const t = TRANSLATIONS[currentLang];
+            try {
+                const now = new Date();
 
-            // 날짜 형식 (러시아어/한국어)
-            let dateStr;
-            if (currentLang === 'ru') {
-                const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-                               'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
-                dateStr = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()} г.`;
-            } else {
-                dateStr = `${now.getFullYear()}년 ${(now.getMonth() + 1)}월 ${now.getDate()}일`;
+                // 날짜 형식 (러시아어/한국어)
+                let dateStr;
+                if (currentLang === 'ru') {
+                    const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+                                   'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+                    dateStr = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()} г.`;
+                } else {
+                    dateStr = `${now.getFullYear()}년 ${(now.getMonth() + 1)}월 ${now.getDate()}일`;
+                }
+
+                // 시간 형식 (24시간)
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                const timeStr = `${hours}:${minutes}:${seconds}`;
+
+                // DOM 업데이트
+                const dateElement = document.getElementById('currentDate');
+                const timeElement = document.getElementById('currentTime');
+
+                if (dateElement) dateElement.textContent = dateStr;
+                if (timeElement) timeElement.textContent = timeStr;
+
+                console.log('DateTime updated:', dateStr, timeStr);
+            } catch (error) {
+                console.error('updateDateTime error:', error);
+                // 오류 발생 시에도 기본 시간 표시
+                const now = new Date();
+                const dateElement = document.getElementById('currentDate');
+                const timeElement = document.getElementById('currentTime');
+                if (dateElement) dateElement.textContent = now.toLocaleDateString('ko-KR');
+                if (timeElement) timeElement.textContent = now.toLocaleTimeString('ko-KR');
             }
-
-            // 시간 형식 (24시간)
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const timeStr = `${hours}:${minutes}:${seconds}`;
-
-            // DOM 업데이트
-            const dateElement = document.getElementById('currentDate');
-            const timeElement = document.getElementById('currentTime');
-
-            if (dateElement) dateElement.textContent = dateStr;
-            if (timeElement) timeElement.textContent = timeStr;
         }
 
         // 초기화
@@ -2372,14 +2383,18 @@
             });
 
             // 언어 적용
+            console.log('Applying language...');
             updateLanguage();
 
             // 날짜/시간 즉시 업데이트 및 시작
+            console.log('Starting datetime update...');
             updateDateTime();
             if (dateTimeInterval) clearInterval(dateTimeInterval);
             dateTimeInterval = setInterval(updateDateTime, 1000);
+            console.log('DateTime interval started');
 
             // 로그인 상태 확인
+            console.log('Checking login status...');
             checkLoginStatus();
 
             renderUserSelect();
