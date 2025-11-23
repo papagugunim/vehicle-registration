@@ -1,5 +1,5 @@
-# 🚛 차량 입차 등록 시스템
-Lotte KF 러시아법인 차량 입차 관리 시스템
+# 🚛 Lotte KF Rus Factory Vehicle Entry Registration System with AI
+Lotte KF 러시아법인 차량 입차 관리 시스템 / Система регистрации въезда транспорта
 
 ## 📋 기능
 
