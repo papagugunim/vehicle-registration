@@ -872,8 +872,8 @@
             <h1>🚛 차량 입차 등록 시스템</h1>
             <div class="subtitle">Система регистрации въезда транспорта | Vehicle Entry Registration System <span style="font-size: 0.75em; color: #fff; margin-left: 8px;">v0.1</span></div>
             <div class="datetime-display">
-                <span class="date" id="currentDate">2025년 11월 22일</span>
-                <span class="time" id="currentTime">00:00:00</span>
+                <span class="date" id="currentDate">Loading...</span>
+                <span class="time" id="currentTime"></span>
             </div>
         </div>
 
@@ -2373,6 +2373,11 @@
 
             // 언어 적용
             updateLanguage();
+
+            // 날짜/시간 즉시 업데이트 및 시작
+            updateDateTime();
+            if (dateTimeInterval) clearInterval(dateTimeInterval);
+            dateTimeInterval = setInterval(updateDateTime, 1000);
 
             // 로그인 상태 확인
             checkLoginStatus();
