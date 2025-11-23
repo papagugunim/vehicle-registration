@@ -346,6 +346,37 @@
             border-color: #ED1C24;
         }
 
+        .export-section {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+
+        .export-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+        }
+
+        .export-btn:active {
+            transform: translateY(0);
+        }
+
         .success-message {
             background: #d4edda;
             border: 2px solid #4caf50;
@@ -990,6 +1021,13 @@
                     <button class="filter-btn" onclick="filterVehicles('completed')">입차 완료</button>
                 </div>
 
+                <div class="export-section">
+                    <button class="export-btn" onclick="exportToCSV()">
+                        <span>📊</span>
+                        <span id="exportBtnText">CSV 내보내기</span>
+                    </button>
+                </div>
+
                 <div class="vehicle-list" id="vehicleList">
                     <!-- 차량 목록이 여기에 표시됩니다 -->
                 </div>
@@ -1070,6 +1108,7 @@
                 filterToday: 'Сегодня',
                 filterPending: 'Ожидание',
                 filterCompleted: 'Завершено',
+                exportBtn: 'Экспорт в CSV',
                 noVehicles: 'Нет зарегистрированных транспортов',
                 statusCompleted: 'Завершено',
                 statusPending: 'Ожидание',
@@ -1159,6 +1198,7 @@
                 filterToday: '오늘',
                 filterPending: '입차 대기',
                 filterCompleted: '입차 완료',
+                exportBtn: 'CSV 내보내기',
                 noVehicles: '등록된 차량이 없습니다',
                 statusCompleted: '입차완료',
                 statusPending: '입차대기',
@@ -1725,6 +1765,73 @@
             renderVehicleList(currentFilter);
         });
 
+        // CSV 내보내기
+        function exportToCSV() {
+            const vehicles = loadVehicles();
+
+            if (vehicles.length === 0) {
+                alert(currentLang === 'ko' ? '내보낼 데이터가 없습니다.' : 'Нет данных для экспорта.');
+                return;
+            }
+
+            // CSV 헤더 (한국어/러시아어)
+            const headers = currentLang === 'ko'
+                ? ['등록일시', '등록자', '입차날짜', '거래처명', '주문번호', '헤드번호', '트레일러번호', '운전자명', '운전자여권', '운전자전화', '입차예정시각', '입차완료여부']
+                : ['Дата регистрации', 'Регистратор', 'Дата въезда', 'Клиент', 'Номер заказа', 'Номер тягача', 'Номер прицепа', 'ФИО водителя', 'Паспорт', 'Телефон', 'Время въезда', 'Статус'];
+
+            // CSV 데이터 행 생성
+            const rows = vehicles.map(v => {
+                const registeredAt = new Date(v.registeredAt).toLocaleString('ko-KR');
+                const completedText = currentLang === 'ko'
+                    ? (v.entryCompleted ? '완료' : '대기')
+                    : (v.entryCompleted ? 'Завершено' : 'Ожидание');
+
+                return [
+                    registeredAt,
+                    v.registeredBy || '',
+                    v.entryDate || '',
+                    v.clientName || '',
+                    v.orderNumber || '',
+                    v.headNumber || '',
+                    v.trailerNumber || '',
+                    v.driverName || '',
+                    v.driverPassport || '',
+                    v.driverPhone || '',
+                    v.entryTime || '',
+                    completedText
+                ].map(field => `"${field}"`).join(',');
+            });
+
+            // CSV 문자열 생성
+            const csvContent = [
+                headers.map(h => `"${h}"`).join(','),
+                ...rows
+            ].join('\n');
+
+            // BOM 추가 (엑셀에서 한글/러시아어 깨짐 방지)
+            const BOM = '\uFEFF';
+            const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
+
+            // 파일 다운로드
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            const today = new Date().toISOString().split('T')[0];
+
+            link.setAttribute('href', url);
+            link.setAttribute('download', `Lotte_Vehicle_Registration_${today}.csv`);
+            link.style.visibility = 'hidden';
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // 성공 메시지
+            const message = currentLang === 'ko'
+                ? `${vehicles.length}개의 차량 데이터를 CSV로 내보냈습니다.`
+                : `Экспортировано ${vehicles.length} записей в CSV.`;
+            alert(message);
+        }
+
         // Google Sheets 동기화
         async function syncToGoogleSheet(vehicle) {
             const settings = loadSettings();
@@ -1841,6 +1948,8 @@
             filterBtns[1].textContent = t.filterToday;
             filterBtns[2].textContent = t.filterPending;
             filterBtns[3].textContent = t.filterCompleted;
+
+            document.getElementById('exportBtnText').textContent = t.exportBtn;
 
             // 설정
             document.querySelector('#settings h2').textContent = t.settingsTitle;
